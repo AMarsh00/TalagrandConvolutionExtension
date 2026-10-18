@@ -1,0 +1,36 @@
+{"synthetic": false,
+ "schemaVersion": "2025-09-10",
+ "outputs":
+ {"o": ["03e896ac2b16e7c2.olean"],
+  "i": "a687a5fa074bc4a8.ilean",
+  "c": "5477f4ad60c08e4c.c"},
+ "log":
+ [{"message":
+   ".> LEAN_PATH=C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\Cli\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\batteries\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\Qq\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\aesop\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\proofwidgets\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\importGraph\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\LeanSearchClient\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\plausible\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\StatLean\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\mathlib\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\TalagrandConvConjecture\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\build\\lib\\lean c:\\Users\\Ajkmcurator\\.elan\\toolchains\\leanprover--lean4---v4.29.1\\bin\\lean.exe C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\TailBound\\Coupling.lean -o C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\build\\lib\\lean\\TailBound\\Coupling.olean -i C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\build\\lib\\lean\\TailBound\\Coupling.ilean -c C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\build\\ir\\TailBound\\Coupling.c --setup C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\build\\ir\\TailBound\\Coupling.setup.json --json",
+   "level": "trace"},
+  {"message":
+   "TailBound/Coupling.lean:151:9: unused variable `t`\n\nNote: This linter can be disabled with `set_option linter.unusedVariables false`",
+   "level": "warning"}],
+ "inputs":
+ [["TailBound.Coupling:deps",
+   [["deps",
+     [["TailBoundAudit/TailBound:extraDep",
+       [["@TailBoundAudit:extraDep", "00000000000006bb"]]],
+      ["imports",
+       [["TailBound.TimeGrid transitive imports (legacy)", "823a93c913531153"],
+        ["TailBound.TimeGrid:importAllArts", "29b7e8be3241b30a"]]]]],
+    ["libs",
+     [["import dynlibs", "00000000000006bb"],
+      ["package external libraries", "00000000000006bb"],
+      ["module dynlibs", "00000000000006bb"],
+      ["module plugins", "00000000000006bb"]]]]],
+  ["Lean 4.29.1, commit f72c35b3f637c8c6571d353742168ab66cc22c00",
+   "fa77a35a41db35c0"],
+  ["C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\TailBound\\Coupling.lean",
+   "77071ca6d46d6ce0"],
+  ["options", "00000000000006bb"],
+  ["isModule: false", "feefd2a0d3a1847e"],
+  ["Module.name: TailBound.Coupling", "361d0850e7e653ca"],
+  ["Package.id?: (some TailBoundAudit)", "1d0067c1e6bcb093"],
+  ["Module.leanArgs: #[]", "00000000000006bb"]],
+ "depHash": "f6b0f71f81e74bab"}

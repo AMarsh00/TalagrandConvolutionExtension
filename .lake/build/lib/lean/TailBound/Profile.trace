@@ -1,0 +1,37 @@
+{"synthetic": false,
+ "schemaVersion": "2025-09-10",
+ "outputs":
+ {"o": ["09bb2f51a03f5224.olean"],
+  "i": "f7e2d76b34a9cf86.ilean",
+  "c": "3313fd0453325d79.c"},
+ "log":
+ [{"message":
+   ".> LEAN_PATH=C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\Cli\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\batteries\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\Qq\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\aesop\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\proofwidgets\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\importGraph\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\LeanSearchClient\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\plausible\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\StatLean\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\mathlib\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\TalagrandConvConjecture\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\build\\lib\\lean c:\\Users\\Ajkmcurator\\.elan\\toolchains\\leanprover--lean4---v4.29.1\\bin\\lean.exe C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\TailBound\\Profile.lean -o C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\build\\lib\\lean\\TailBound\\Profile.olean -i C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\build\\lib\\lean\\TailBound\\Profile.ilean -c C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\build\\ir\\TailBound\\Profile.c --setup C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\build\\ir\\TailBound\\Profile.setup.json --json",
+   "level": "trace"},
+  {"message":
+   "TailBound/Profile.lean:175:12: `mul_le_mul_left'` has been deprecated: Use `mul_le_mul_right` instead",
+   "level": "warning"}],
+ "inputs":
+ [["TailBound.Profile:deps",
+   [["deps",
+     [["TailBoundAudit/TailBound:extraDep",
+       [["@TailBoundAudit:extraDep", "00000000000006bb"]]],
+      ["imports",
+       [["TailBound.ProfileFlux transitive imports (legacy)",
+         "530e707be36080d5"],
+        ["TailBound.ProfileFlux:importAllArts", "8212608ddb34bbcc"]]]]],
+    ["libs",
+     [["import dynlibs", "00000000000006bb"],
+      ["package external libraries", "00000000000006bb"],
+      ["module dynlibs", "00000000000006bb"],
+      ["module plugins", "00000000000006bb"]]]]],
+  ["Lean 4.29.1, commit f72c35b3f637c8c6571d353742168ab66cc22c00",
+   "fa77a35a41db35c0"],
+  ["C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\TailBound\\Profile.lean",
+   "92181c3e6a5e685a"],
+  ["options", "00000000000006bb"],
+  ["isModule: false", "feefd2a0d3a1847e"],
+  ["Module.name: TailBound.Profile", "22b670839091f373"],
+  ["Package.id?: (some TailBoundAudit)", "1d0067c1e6bcb093"],
+  ["Module.leanArgs: #[]", "00000000000006bb"]],
+ "depHash": "15fa24f3b335d3f5"}

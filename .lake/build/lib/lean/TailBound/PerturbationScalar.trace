@@ -1,0 +1,43 @@
+{"synthetic": false,
+ "schemaVersion": "2025-09-10",
+ "outputs":
+ {"o": ["dd8203010a34f600.olean"],
+  "i": "cdd219e43a2c3f5e.ilean",
+  "c": "8a1518060a304b4e.c"},
+ "log":
+ [{"message":
+   ".> LEAN_PATH=C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\Cli\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\batteries\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\Qq\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\aesop\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\proofwidgets\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\importGraph\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\LeanSearchClient\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\plausible\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\StatLean\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\mathlib\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\TalagrandConvConjecture\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\build\\lib\\lean c:\\Users\\Ajkmcurator\\.elan\\toolchains\\leanprover--lean4---v4.29.1\\bin\\lean.exe C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\TailBound\\PerturbationScalar.lean -o C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\build\\lib\\lean\\TailBound\\PerturbationScalar.olean -i C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\build\\lib\\lean\\TailBound\\PerturbationScalar.ilean -c C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\build\\ir\\TailBound\\PerturbationScalar.c --setup C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\build\\ir\\TailBound\\PerturbationScalar.setup.json --json",
+   "level": "trace"},
+  {"message":
+   "TailBound/PerturbationScalar.lean:49:18: unused variable `hL`\n\nNote: This linter can be disabled with `set_option linter.unusedVariables false`",
+   "level": "warning"},
+  {"message":
+   "TailBound/PerturbationScalar.lean:83:34: this tactic is never executed\n\nNote: This linter can be disabled with `set_option linter.unreachableTactic false`",
+   "level": "warning"},
+  {"message":
+   "TailBound/PerturbationScalar.lean:83:34: 'ring' tactic does nothing\n\nNote: This linter can be disabled with `set_option linter.unusedTactic false`",
+   "level": "warning"}],
+ "inputs":
+ [["TailBound.PerturbationScalar:deps",
+   [["deps",
+     [["TailBoundAudit/TailBound:extraDep",
+       [["@TailBoundAudit:extraDep", "00000000000006bb"]]],
+      ["imports",
+       [["TailBound.BridgeQuadratic transitive imports (legacy)",
+         "976c1d6e642dee9d"],
+        ["TailBound.BridgeQuadratic:importAllArts", "209bbdf08afbe91a"]]]]],
+    ["libs",
+     [["import dynlibs", "00000000000006bb"],
+      ["package external libraries", "00000000000006bb"],
+      ["module dynlibs", "00000000000006bb"],
+      ["module plugins", "00000000000006bb"]]]]],
+  ["Lean 4.29.1, commit f72c35b3f637c8c6571d353742168ab66cc22c00",
+   "fa77a35a41db35c0"],
+  ["C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\TailBound\\PerturbationScalar.lean",
+   "0d4f5ba31606258a"],
+  ["options", "00000000000006bb"],
+  ["isModule: false", "feefd2a0d3a1847e"],
+  ["Module.name: TailBound.PerturbationScalar", "8c26eb2397c0aee2"],
+  ["Package.id?: (some TailBoundAudit)", "1d0067c1e6bcb093"],
+  ["Module.leanArgs: #[]", "00000000000006bb"]],
+ "depHash": "106fbef3a47c2bae"}

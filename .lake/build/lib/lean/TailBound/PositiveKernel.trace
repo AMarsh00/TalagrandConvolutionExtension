@@ -1,0 +1,33 @@
+{"synthetic": false,
+ "schemaVersion": "2025-09-10",
+ "outputs":
+ {"o": ["021fa679bd29b282.olean"],
+  "i": "85cd12f2bd898dc9.ilean",
+  "c": "3365a76335a4d96f.c"},
+ "log":
+ [{"message":
+   ".> LEAN_PATH=C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\Cli\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\batteries\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\Qq\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\aesop\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\proofwidgets\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\importGraph\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\LeanSearchClient\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\plausible\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\StatLean\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\mathlib\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\TalagrandConvConjecture\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\build\\lib\\lean c:\\Users\\Ajkmcurator\\.elan\\toolchains\\leanprover--lean4---v4.29.1\\bin\\lean.exe C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\TailBound\\PositiveKernel.lean -o C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\build\\lib\\lean\\TailBound\\PositiveKernel.olean -i C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\build\\lib\\lean\\TailBound\\PositiveKernel.ilean -c C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\build\\ir\\TailBound\\PositiveKernel.c --setup C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\build\\ir\\TailBound\\PositiveKernel.setup.json --json",
+   "level": "trace"}],
+ "inputs":
+ [["TailBound.PositiveKernel:deps",
+   [["deps",
+     [["TailBoundAudit/TailBound:extraDep",
+       [["@TailBoundAudit:extraDep", "00000000000006bb"]]],
+      ["imports",
+       [["TailBound.Core transitive imports (legacy)", "e2e6f0665639f7bd"],
+        ["TailBound.Core:importAllArts", "a8d338955f4f8ba9"]]]]],
+    ["libs",
+     [["import dynlibs", "00000000000006bb"],
+      ["package external libraries", "00000000000006bb"],
+      ["module dynlibs", "00000000000006bb"],
+      ["module plugins", "00000000000006bb"]]]]],
+  ["Lean 4.29.1, commit f72c35b3f637c8c6571d353742168ab66cc22c00",
+   "fa77a35a41db35c0"],
+  ["C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\TailBound\\PositiveKernel.lean",
+   "2761930c5e70a3ef"],
+  ["options", "00000000000006bb"],
+  ["isModule: false", "feefd2a0d3a1847e"],
+  ["Module.name: TailBound.PositiveKernel", "3ce7800831ec8d41"],
+  ["Package.id?: (some TailBoundAudit)", "1d0067c1e6bcb093"],
+  ["Module.leanArgs: #[]", "00000000000006bb"]],
+ "depHash": "37155890c882ff41"}

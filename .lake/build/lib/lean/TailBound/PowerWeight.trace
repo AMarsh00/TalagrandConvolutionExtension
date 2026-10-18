@@ -1,0 +1,46 @@
+{"synthetic": false,
+ "schemaVersion": "2025-09-10",
+ "outputs":
+ {"o": ["02910fbb5beffa74.olean"],
+  "i": "321b33482ff61a08.ilean",
+  "c": "180ef8c38d3197a2.c"},
+ "log":
+ [{"message":
+   ".> LEAN_PATH=C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\Cli\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\batteries\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\Qq\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\aesop\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\proofwidgets\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\importGraph\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\LeanSearchClient\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\plausible\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\StatLean\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\mathlib\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\packages\\TalagrandConvConjecture\\.lake\\build\\lib\\lean;C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\build\\lib\\lean c:\\Users\\Ajkmcurator\\.elan\\toolchains\\leanprover--lean4---v4.29.1\\bin\\lean.exe C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\TailBound\\PowerWeight.lean -o C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\build\\lib\\lean\\TailBound\\PowerWeight.olean -i C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\build\\lib\\lean\\TailBound\\PowerWeight.ilean -c C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\build\\ir\\TailBound\\PowerWeight.c --setup C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\.lake\\build\\ir\\TailBound\\PowerWeight.setup.json --json",
+   "level": "trace"},
+  {"message":
+   "TailBound/PowerWeight.lean:22:37: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice\n\nNote: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`",
+   "level": "warning"},
+  {"message":
+   "TailBound/PowerWeight.lean:112:6: Try this:\n  [apply] ring_nf\n  \n  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.\n    \n  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.",
+   "level": "info"},
+  {"message":
+   "TailBound/PowerWeight.lean:107:61: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice\n\nNote: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`",
+   "level": "warning"},
+  {"message":
+   "TailBound/PowerWeight.lean:107:76: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice\n\nNote: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`",
+   "level": "warning"}],
+ "inputs":
+ [["TailBound.PowerWeight:deps",
+   [["deps",
+     [["TailBoundAudit/TailBound:extraDep",
+       [["@TailBoundAudit:extraDep", "00000000000006bb"]]],
+      ["imports",
+       [["TailBound.ReverseHarmonic transitive imports (legacy)",
+         "a5c0111e919a93ff"],
+        ["TailBound.ReverseHarmonic:importAllArts", "69bf853e82b54cba"]]]]],
+    ["libs",
+     [["import dynlibs", "00000000000006bb"],
+      ["package external libraries", "00000000000006bb"],
+      ["module dynlibs", "00000000000006bb"],
+      ["module plugins", "00000000000006bb"]]]]],
+  ["Lean 4.29.1, commit f72c35b3f637c8c6571d353742168ab66cc22c00",
+   "fa77a35a41db35c0"],
+  ["C:\\Users\\Ajkmcurator\\Downloads\\tail-bound-lean\\tail-bound-lean\\TailBound\\PowerWeight.lean",
+   "8ca84a4cf0eb6cd7"],
+  ["options", "00000000000006bb"],
+  ["isModule: false", "feefd2a0d3a1847e"],
+  ["Module.name: TailBound.PowerWeight", "dd521e73d0583814"],
+  ["Package.id?: (some TailBoundAudit)", "1d0067c1e6bcb093"],
+  ["Module.leanArgs: #[]", "00000000000006bb"]],
+ "depHash": "f91ce1ff1fffffcd"}
