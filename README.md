@@ -1,7 +1,6 @@
 # Tail-bound manuscript: main theorem verified in Lean
 
-This project proves Alexander Marsh's main finite-state tail theorem from
-`Tail_Bound_Idea (2).pdf`:
+This repository contains a Lean 4 formalization of our paper "TITLE":
 
 ```lean
 theorem TailBound.main_theorem : TailBound.ManuscriptTheorem1
