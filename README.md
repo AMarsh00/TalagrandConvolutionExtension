@@ -1,5 +1,7 @@
 # Tail-bound manuscript: main theorem verified in Lean
 
+TODO: WORKSHOP THE REPO TO BE GOOD -- CURRENTLY JUST CHATGPT GENERATED
+
 This repository contains a Lean 4 formalization of our paper "TITLE":
 
 ```lean
