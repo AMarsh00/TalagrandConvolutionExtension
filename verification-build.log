@@ -1,0 +1,502 @@
+⚠ [8260/8321] Replayed TailBound.ContinuousPositivity
+warning: TailBound/ContinuousPositivity.lean:130:4: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+⚠ [8262/8321] Replayed TalagrandConvConjecture.Cube.Basic
+warning: TalagrandConvConjecture/Cube/Basic.lean:45:47: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: TalagrandConvConjecture/Cube/Basic.lean:48:47: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [8263/8321] Replayed TalagrandConvConjecture.Cube.Entropy
+warning: TalagrandConvConjecture/Cube/Entropy.lean:74:60: unused variable `hw1`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: TalagrandConvConjecture/Cube/Entropy.lean:133:41: unused variable `hp1`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [8264/8321] Replayed TailBound.Entropy
+warning: TailBound/Entropy.lean:198:8: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+warning: TailBound/Entropy.lean:198:8: 'ring' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [8265/8321] Replayed TalagrandConvConjecture.Analysis.PiecewiseFTC
+warning: TalagrandConvConjecture/Analysis/PiecewiseFTC.lean:85:6: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+warning: TalagrandConvConjecture/Analysis/PiecewiseFTC.lean:126:6: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+⚠ [8266/8321] Replayed TailBound.Heat
+warning: TailBound/Heat.lean:122:4: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+warning: TailBound/Heat.lean:168:82: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: TailBound/Heat.lean:169:25: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [8267/8321] Replayed TailBound.ProductCalculus
+warning: TailBound/ProductCalculus.lean:28:0: automatically included section variable(s) unused in theorem `TailBound.generator_weighted_form`:
+  [DecidableEq α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq α] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [8268/8321] Replayed TalagrandConvConjecture.Analysis.Cutoff
+warning: TalagrandConvConjecture/Analysis/Cutoff.lean:367:6: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+warning: TalagrandConvConjecture/Analysis/Cutoff.lean:381:8: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+warning: TalagrandConvConjecture/Analysis/Cutoff.lean:424:2: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+⚠ [8269/8321] Replayed TailBound.ProfileEntropy
+warning: TailBound/ProfileEntropy.lean:48:67: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [8271/8321] Replayed TailBound.Profile
+warning: TailBound/Profile.lean:175:12: `mul_le_mul_left'` has been deprecated: Use `mul_le_mul_right` instead
+⚠ [8272/8321] Replayed TalagrandConvConjecture.ODE.LinearFlow
+warning: TalagrandConvConjecture/ODE/LinearFlow.lean:115:0: automatically included section variable(s) unused in theorem `Talagrand.norm_matVec_le`:
+  [DecidableEq S]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq S] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: TalagrandConvConjecture/ODE/LinearFlow.lean:128:0: automatically included section variable(s) unused in theorem `Talagrand.matVec_sub`:
+  [DecidableEq S]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq S] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: TalagrandConvConjecture/ODE/LinearFlow.lean:142:0: automatically included section variable(s) unused in theorem `Talagrand.exists_rowSum_bound`:
+  [DecidableEq S]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq S] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: TalagrandConvConjecture/ODE/LinearFlow.lean:160:0: automatically included section variable(s) unused in theorem `Talagrand.isLinFlow_of_deriv`:
+  [DecidableEq S]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq S] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: TalagrandConvConjecture/ODE/LinearFlow.lean:276:6: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+warning: TalagrandConvConjecture/ODE/LinearFlow.lean:312:54: unused variable `hab`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: TalagrandConvConjecture/ODE/LinearFlow.lean:355:4: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+warning: TalagrandConvConjecture/ODE/LinearFlow.lean:386:6: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+warning: TalagrandConvConjecture/ODE/LinearFlow.lean:447:2: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+warning: TalagrandConvConjecture/ODE/LinearFlow.lean:455:54: unused variable `hab`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: TalagrandConvConjecture/ODE/LinearFlow.lean:465:0: automatically included section variable(s) unused in theorem `Talagrand.linFlow_mass_eq`:
+  [DecidableEq S]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq S] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: TalagrandConvConjecture/ODE/LinearFlow.lean:465:55: unused variable `hab`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: TalagrandConvConjecture/ODE/LinearFlow.lean:486:0: automatically included section variable(s) unused in theorem `Talagrand.linFlow_mass_le`:
+  [DecidableEq S]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq S] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: TalagrandConvConjecture/ODE/LinearFlow.lean:486:55: unused variable `hab`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: TalagrandConvConjecture/ODE/LinearFlow.lean:511:0: automatically included section variable(s) unused in theorem `Talagrand.hasDerivWithinAt_pairing`:
+  [DecidableEq S]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq S] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: TalagrandConvConjecture/ODE/LinearFlow.lean:523:60: unused variable `hab`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: TalagrandConvConjecture/ODE/LinearFlow.lean:531:31: unused variable `hy0`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: TalagrandConvConjecture/ODE/LinearFlow.lean:542:25: This simp argument is unused:
+  ← Finset.sum_sub_distrib
+
+Hint: Omit it from the simp argument list.
+  simp only [matVec,̵ ̵←̵ ̵F̵i̵n̵s̵e̵t̵.̵s̵u̵m̵_̵s̵u̵b̵_̵d̵i̵s̵t̵r̵i̵b̵]
+
+Note: Simp arguments with `←` have the additional effect of removing the other direction from the simp set, even if the simp argument itself is unused. If the hint above does not work, try replacing `←` with `-` to only get that effect and silence this warning.
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [8273/8321] Replayed TalagrandConvConjecture.Flow.Glued
+warning: TalagrandConvConjecture/Flow/Glued.lean:35:37: unused variable `hq`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: TalagrandConvConjecture/Flow/Glued.lean:41:0: automatically included section variable(s) unused in theorem `Talagrand.sum_matVec_of_col_sum_one`:
+  [DecidableEq S]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq S] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [8275/8321] Replayed TalagrandConvConjecture.Cube.Multilinear
+warning: TalagrandConvConjecture/Cube/Multilinear.lean:262:5: unused variable `hh`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [8279/8321] Replayed TalagrandConvConjecture.PowerCoupling
+warning: TalagrandConvConjecture/PowerCoupling.lean:187:39: unused variable `hd1`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: TalagrandConvConjecture/PowerCoupling.lean:263:50: unused variable `hd1`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: TalagrandConvConjecture/PowerCoupling.lean:288:23: unused variable `hY0`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: TalagrandConvConjecture/PowerCoupling.lean:342:60: unused variable `hd1`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [8280/8321] Replayed TailBound.Reverse
+warning: TailBound/Reverse.lean:103:9: unused variable `t`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [8281/8321] Replayed TailBound.TimeGrid
+warning: TailBound/TimeGrid.lean:117:43: unused variable `t`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [8282/8321] Replayed TailBound.Coupling
+warning: TailBound/Coupling.lean:151:9: unused variable `t`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [8285/8321] Replayed TailBound.StoppedScore
+warning: TailBound/StoppedScore.lean:51:76: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [8287/8321] Replayed TailBound.PowerWeight
+warning: TailBound/PowerWeight.lean:22:37: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+info: TailBound/PowerWeight.lean:112:6: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+warning: TailBound/PowerWeight.lean:107:61: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: TailBound/PowerWeight.lean:107:76: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [8288/8321] Replayed TailBound.WeightedComparison
+warning: TailBound/WeightedComparison.lean:89:40: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: TailBound/WeightedComparison.lean:89:59: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [8289/8321] Replayed TailBound.BridgeDynamics
+warning: TailBound/BridgeDynamics.lean:60:92: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [8290/8321] Replayed TailBound.ProductEvolution
+warning: TailBound/ProductEvolution.lean:12:0: automatically included section variable(s) unused in theorem `TailBound.productWeight_update_sub`:
+  [Fintype α]
+  [DecidableEq α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype α] [DecidableEq α] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: TailBound/ProductEvolution.lean:96:23: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [8292/8321] Replayed TailBound.DoobCalculus
+warning: TailBound/DoobCalculus.lean:81:23: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [8294/8321] Replayed TailBound.BridgeDuhamel
+warning: TailBound/BridgeDuhamel.lean:65:69: unused variable `t`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: TailBound/BridgeDuhamel.lean:69:71: unused variable `t`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: TailBound/BridgeDuhamel.lean:90:52: unused variable `t`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: TailBound/BridgeDuhamel.lean:92:11: unused variable `t`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [8296/8321] Replayed TailBound.PerturbationScalar
+warning: TailBound/PerturbationScalar.lean:49:18: unused variable `hL`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: TailBound/PerturbationScalar.lean:83:34: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+warning: TailBound/PerturbationScalar.lean:83:34: 'ring' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [8297/8321] Replayed TailBound.FlowBounds
+warning: TailBound/FlowBounds.lean:15:61: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+warning: TailBound/FlowBounds.lean:15:61: 'ring' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: TailBound/FlowBounds.lean:37:0: automatically included section variable(s) unused in theorem `TailBound.RefreshData.StoppedCoupling.integrate_congr`:
+  [Nonempty α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty α] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [8298/8321] Replayed TailBound.BridgePerturbation
+warning: TailBound/BridgePerturbation.lean:13:0: automatically included section variable(s) unused in theorem `TailBound.vertical_energy_le`:
+  [Fintype α]
+  [DecidableEq α]
+  [Nonempty α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype α] [DecidableEq α] [Nonempty α] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: TailBound/BridgePerturbation.lean:85:21: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [8299/8321] Replayed TailBound.IntegratedHorizontal
+warning: TailBound/IntegratedHorizontal.lean:17:0: automatically included section variable(s) unused in theorem `TailBound.RefreshData.totalEnergy_split`:
+  [Nonempty α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty α] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: TailBound/IntegratedHorizontal.lean:20:13: This simp argument is unused:
+  ← Finset.sum_add_distrib
+
+Hint: Omit it from the simp argument list.
+  simp only [̵←̵ ̵F̵i̵n̵s̵e̵t̵.̵s̵u̵m̵_̵a̵d̵d̵_̵d̵i̵s̵t̵r̵i̵b̵,̵m̵u̵l̵_̵a̵d̵d̵,̵F̵i̵n̵s̵e̵t̵.̵s̵u̵m̵_̵a̵d̵d̵_̵d̵i̵s̵t̵r̵i̵b̵]̵[̲m̲u̲l̲_̲a̲d̲d̲,̲ ̲F̲i̲n̲s̲e̲t̲.̲s̲u̲m̲_̲a̲d̲d̲_̲d̲i̲s̲t̲r̲i̲b̲]̲
+
+Note: Simp arguments with `←` have the additional effect of removing the other direction from the simp set, even if the simp argument itself is unused. If the hint above does not work, try replacing `←` with `-` to only get that effect and silence this warning.
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [8302/8321] Replayed TailBound.BandEvents
+warning: TailBound/BandEvents.lean:66:0: automatically included section variable(s) unused in theorem `TailBound.RefreshData.StoppedCoupling.event_difference_le_tv`:
+  [Nonempty α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty α] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [8303/8321] Replayed TailBound.BandPartition
+warning: TailBound/BandPartition.lean:67:26: unused variable `hθ`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: TailBound/BandPartition.lean:93:29: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+warning: TailBound/BandPartition.lean:93:29: 'linarith' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [8304/8321] Replayed TailBound.InverseDensity
+warning: TailBound/InverseDensity.lean:17:24: This simp argument is unused:
+  zero_sub
+
+Hint: Omit it from the simp argument list.
+  simp only [̵o̵n̵e̵_̵d̵i̵v̵,̵h̵z̵,̵z̵e̵r̵o̵_̵s̵u̵b̵]̵[̲o̲n̲e̲_̲d̲i̲v̲,̲ ̲h̲z̲]̲ at hg
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: TailBound/InverseDensity.lean:29:53: unused variable `t`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [8305/8321] Replayed TailBound.LayerScore
+warning: TailBound/LayerScore.lean:48:47: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [8306/8321] Replayed TailBound.StartingProfile
+warning: TailBound/StartingProfile.lean:14:0: automatically included section variable(s) unused in theorem `TailBound.RefreshData.startBand_eq_profile`:
+  [Nonempty α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty α] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: TailBound/StartingProfile.lean:54:0: automatically included section variable(s) unused in theorem `TailBound.RefreshData.gap_layer_iff`:
+  [Nonempty α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty α] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [8308/8321] Replayed TailBound.BandTail
+warning: TailBound/BandTail.lean:44:0: automatically included section variable(s) unused in theorem `TailBound.log_tail_from_bands`:
+  [DecidableEq Ω]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq Ω] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [8309/8321] Replayed TailBound.LayerAveraging
+warning: TailBound/LayerAveraging.lean:61:10: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+warning: TailBound/LayerAveraging.lean:61:10: 'ring' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: TailBound/LayerAveraging.lean:86:0: automatically included section variable(s) unused in theorem `TailBound.RefreshData.active_partition`:
+  [Nonempty α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty α] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: TailBound/LayerAveraging.lean:144:0: automatically included section variable(s) unused in theorem `TailBound.RefreshData.StoppedCoupling.testDifference_sum_add`:
+  [Nonempty α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Nonempty α] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [8310/8321] Replayed TailBound.InactiveBands
+warning: TailBound/InactiveBands.lean:51:72: This simp argument is unused:
+  and_assoc
+
+Hint: Omit it from the simp argument list.
+  simp [̵h̵a̵,̵h̵b̵,̵a̵n̵d̵_̵a̵s̵s̵o̵c̵]̵[̲h̲a̲,̲ ̲h̲b̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [8311/8321] Replayed TailBound.AveragedError
+warning: TailBound/AveragedError.lean:130:45: This simp argument is unused:
+  sub_self
+
+Hint: Omit it from the simp argument list.
+  simp only [intervalIntegral.integral_const, ̲sub_s̵e̵l̵f̵,̵s̵u̵b̵_̵zero, ̲smul_eq_mul]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: TailBound/AveragedError.lean:130:54: This simp argument is unused:
+  sub_zero
+
+Hint: Omit it from the simp argument list.
+  simp only [intervalIntegral.integral_const, ̲sub_self, ̲su̵b̵_̵z̵e̵r̵o̵,̵s̵mul_eq_mul]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [8312/8321] Replayed TailBound.FixedBand
+warning: TailBound/FixedBand.lean:90:0: automatically included section variable(s) unused in theorem `TailBound.RefreshData.bandConstant_pos`:
+  [DecidableEq α]
+  [Nonempty α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq α] [Nonempty α] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [8313/8321] Replayed TailBound.SharpLayer
+warning: TailBound/SharpLayer.lean:28:0: automatically included section variable(s) unused in theorem `TailBound.RefreshData.sharpLocalConstant_pos`:
+  [DecidableEq α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq α] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: TailBound/SharpLayer.lean:133:23: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [8314/8321] Replayed TailBound.SharpAverage
+warning: TailBound/SharpAverage.lean:75:45: This simp argument is unused:
+  sub_self
+
+Hint: Omit it from the simp argument list.
+  simp only [intervalIntegral.integral_const, ̲sub_s̵e̵l̵f̵,̵s̵u̵b̵_̵zero, ̲smul_eq_mul]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: TailBound/SharpAverage.lean:75:54: This simp argument is unused:
+  sub_zero
+
+Hint: Omit it from the simp argument list.
+  simp only [intervalIntegral.integral_const, ̲sub_self, ̲su̵b̵_̵z̵e̵r̵o̵,̵s̵mul_eq_mul]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [8315/8321] Replayed TailBound.PositiveApproximation
+warning: TailBound/PositiveApproximation.lean:72:4: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+warning: TailBound/PositiveApproximation.lean:68:0: automatically included section variable(s) unused in theorem `TailBound.act_strictly_pos`:
+  [DecidableEq Ω]
+  [Nonempty Ω]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq Ω] [Nonempty Ω] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [8316/8321] Built TailBound.SharpBand (6.3s)
+warning: TailBound/SharpBand.lean:74:0: automatically included section variable(s) unused in theorem `TailBound.RefreshData.sharpBandConstant_pos`:
+  [DecidableEq α]
+  [Nonempty α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq α] [Nonempty α] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: TailBound/SharpBand.lean:123:0: automatically included section variable(s) unused in theorem `TailBound.RefreshData.sharpK_eq_manuscript`:
+  [DecidableEq α]
+  [Nonempty α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq α] [Nonempty α] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+✔ [8317/8321] Built TailBound.SharpStatement (3.9s)
+✔ [8318/8321] Built TailBound.RefreshTail (4.8s)
+✔ [8319/8321] Built TailBound.MainTheorem (3.8s)
+✔ [8320/8321] Built TailBound (3.3s)
+Build completed successfully (8321 jobs).

@@ -1,0 +1,16 @@
+name = "TailBoundAudit"
+version = "0.1.0"
+defaultTargets = ["TailBound"]
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4.git"
+rev = "v4.29.1"
+
+[[lean_lib]]
+name = "TailBound"
+
+[[require]]
+name = "TalagrandConvConjecture"
+git = "https://github.com/junwei-lu/TalagrandConvolutionConjecture.git"
+rev = "6488afd9f5f94f40766c6915c6e4e4f8de15ada7"
