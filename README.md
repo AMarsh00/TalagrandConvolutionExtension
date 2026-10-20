@@ -4,17 +4,17 @@
 
 The main theorem extends the convolution tail bound to products of arbitrary finite-state irreducible continuous Markov semigroups. The stationary law may be nonuniform, and reversibility is not required.
 
-## Main result
+## Main theorem
 
-Let (Sₜ)ₜ≥₀ be an irreducible continuous-time Markov semigroup on a finite state space G₀, with stationary probability measure π.
+Let (S<sub>t</sub>)<sub>t ≥ 0</sub> be an irreducible continuous-time Markov semigroup on a finite state space G₀, with stationary distribution π.
 
-For every time τ > 0, there is a constant C > 0, depending only on τ, the semigroup, and π, such that:
+For every τ > 0, there exists a constant C > 0 such that
 
-> **π⊗ᴺ({x : (Sτ⊗ᴺ f)(x) > η ∫ f dπ⊗ᴺ}) ≤ C / (η √(log η))**
+> π<sup>⊗N</sup>({x : (S<sub>τ</sub><sup>⊗N</sup>f)(x) > η ∫ f dπ<sup>⊗N</sup>}) ≤ C / (η √log η).
 
-This holds for every dimension N ≥ 1, every nonnegative function f on G₀ᴺ, and every threshold η > 1. Here π⊗ᴺ and Sτ⊗ᴺ denote the N-fold tensor products.
+The bound holds for every dimension N ≥ 1, every nonnegative function f on G₀<sup>N</sup>, and every threshold η > 1.
 
-**The constant is independent of N, f, and η.**
+**The constant C depends only on τ, the semigroup, and π—not on N, f, or η.**
 
 ```lean
 theorem TailBound.main_theorem : TailBound.ManuscriptTheorem1
