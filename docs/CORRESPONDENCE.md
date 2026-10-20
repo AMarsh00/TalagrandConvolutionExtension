@@ -110,7 +110,7 @@ $$
 =\frac{r h_{T_0}(x)\mathbf1_{\{u=y\}}+(1-r)\pi(u)h_{T_0}(u)}{h_t(x)}.
 $$
 
-This is Eq. (5.1), the explicit one-coordinate conditional law derived in Lemma 5.4 for the auxiliary conditioned synchronous process of Lemma 5.1. `bridgeTime t = exp (t-2)` implements $r$ at $T_0=2$. `bridgeMarginals` forms the coordinate laws; `bridgePayoff` and `D.bridgeQ` integrate the test function against their product, corresponding to $q_t^\zeta(x,y)$.
+This is Eq. (5.1), the explicit one-coordinate conditional law derived in Lemma 5.5 for the auxiliary conditioned synchronous process of Lemma 5.1. `bridgeTime t = exp (t-2)` implements $r$ at $T_0=2$. `bridgeMarginals` forms the coordinate laws; `bridgePayoff` and `D.bridgeQ` integrate the test function against their product, corresponding to $q_t^\zeta(x,y)$.
 
 `coordinateAverage` is the finite conditional mean used in the product-variance bound. At zero-mass atoms Lean assigns zero by its convention for division by zero; those atoms contribute no weight. For the bridge's positive marginals at $t<T_0$, it is the usual conditional average.
 
