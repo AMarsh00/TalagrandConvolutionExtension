@@ -6,14 +6,15 @@ The main theorem extends the convolution tail bound to products of arbitrary fin
 
 ## Main result
 
-Let $(S_t)_{t\geq0}$ be such a semigroup, with stationary probability measure $\pi$. For each $\tau>0$, there is $C_{\tau,S,\pi}>0$ such that, for every dimension $N$, every nonnegative $f$, and every $\eta>1$,
+Let (Sₜ)ₜ≥₀ be an irreducible continuous-time Markov semigroup on a finite state space G₀, with stationary probability measure π.
 
-$$
-\pi^{\otimes N}\!\left(S_\tau^{\otimes N}f>\eta\int f\,d\pi^{\otimes N}\right)
-\leq \frac{C_{\tau,S,\pi}}{\eta\sqrt{\log\eta}}.
-$$
+For every time τ > 0, there is a constant C > 0, depending only on τ, the semigroup, and π, such that:
 
-The constant is independent of $N$, $f$, and $\eta$.
+> **π⊗ᴺ({x : (Sτ⊗ᴺ f)(x) > η ∫ f dπ⊗ᴺ}) ≤ C / (η √(log η))**
+
+This holds for every dimension N ≥ 1, every nonnegative function f on G₀ᴺ, and every threshold η > 1. Here π⊗ᴺ and Sτ⊗ᴺ denote the N-fold tensor products.
+
+**The constant is independent of N, f, and η.**
 
 ```lean
 theorem TailBound.main_theorem : TailBound.ManuscriptTheorem1
