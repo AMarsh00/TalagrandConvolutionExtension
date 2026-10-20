@@ -1,6 +1,6 @@
 import TailBound.InactiveBands
 
-/-! Explicit measurable error majorant and its average in Lemma 2. -/
+/-! An explicit measurable error majorant for the fixed-band recurrence. -/
 open scoped BigOperators
 open MeasureTheory intervalIntegral
 namespace TailBound.RefreshData

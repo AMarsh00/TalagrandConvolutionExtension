@@ -1,7 +1,7 @@
 import TailBound.Entropy
 import TalagrandConvConjecture.Analysis.Cutoff
 
-/-! The entropy comparison at the start of Lemma 3, for arbitrary finite
+/-! The localized entropy comparison for arbitrary finite
 probability weights. The localized density is nonnegative, not bounded by 1. -/
 
 open scoped BigOperators
@@ -106,7 +106,7 @@ theorem localized_entropy_lower (μ F : Ω → ℝ) (hμ : ∀ x, 0 ≤ μ x)
 
 variable {α : Type*} [Fintype α] [DecidableEq α]
 
-/-- The first half of Lemma 3: the band is bounded by the localized gradient
+/-- The band mass is bounded by the localized gradient
 energy, with a dimension-independent coefficient. -/
 theorem band_le_localized_energy (π : α → ℝ) (m : ℝ) (hm : 0 < m)
     (hπ : ∀ a, m ≤ π a) (hπ1 : ∑ a, π a = 1) (n : ℕ)

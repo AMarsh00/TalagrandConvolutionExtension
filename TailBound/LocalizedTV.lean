@@ -1,6 +1,6 @@
 import TailBound.IntegratedPerturbation
 
-/-! The localized total-variation estimate (Lemma 4). -/
+/-! Localized total variation for the stopped coupling. -/
 open scoped BigOperators
 namespace TailBound
 attribute [local instance] Classical.propDecidable
@@ -39,7 +39,7 @@ namespace RefreshData.StoppedCoupling
 variable {α : Type*} [Fintype α] [DecidableEq α] [Nonempty α] {n : ℕ}
   {D : RefreshData α n} {ℓ θ : ℝ} (C : D.StoppedCoupling ℓ θ)
 
-/-- Lemma 4, in its stronger form for every nonnegative starting weight and
+/-- Localized total variation for every nonnegative starting weight and
  every test function with values in [0,1]. Its constant depends only on π. -/
 theorem localized_test_bound (hθ : 1 ≤ θ) (hθ2 : θ ≤ 2)
     (a φ : (Fin n → α) → ℝ) (ha : ∀ x, 0 ≤ a x) (hφ : ∀ x, 0 ≤ φ x ∧ φ x ≤ 1) :

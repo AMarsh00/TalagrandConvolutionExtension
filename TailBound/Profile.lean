@@ -1,6 +1,6 @@
 import TailBound.ProfileFlux
 
-/-! The integrated anti-concentration profile (Lemma 3). The proof follows
+/-! The integrated anti-concentration profile. The proof follows
 the manuscript: localized entropy, product LSI, coarea, dissipation, Tonelli.
 The explicit constant is deliberately nonoptimal and independent of dimension.
 -/
@@ -115,8 +115,8 @@ lemma lintegral_Ioi_bound {g : ℝ → ℝ} (hnn : ∀ s, 0 ≤ g s)
     (Eventually.of_forall hnn), ← intervalIntegral.integral_of_le hk]
   exact ENNReal.ofReal_le_ofReal (hC k hk)
 
-/-- Lemma 3, fully quantified over all dimensions and all positive densities.
-`384/m` is a valid explicit constant for the corrected product LSI. -/
+/-- The averaged profile bound for all dimensions and positive densities.
+`384/m` is a valid explicit constant using the product log-Sobolev estimate. -/
 theorem integrated_profile_bound (π : α → ℝ) (m : ℝ) (hm : 0 < m)
     (hπ : ∀ a, m ≤ π a) (hπ1 : ∑ a, π a = 1)
     (f : (Fin n → α) → ℝ) (hf : ∀ x, 0 < f x)
@@ -238,7 +238,7 @@ theorem profile_window_bound (π : α → ℝ) (m : ℝ) (hm : 0 < m)
   exact (ENNReal.ofReal_le_ofReal_iff (by positivity)).mp hh
 
 /-- The manuscript's alphabet-dependent constant exists before choosing the
-dimension or density. This is the full quantifier order of Lemma 3. -/
+dimension or density. The resulting bound is uniform in both. -/
 theorem lemma3 (π : α → ℝ) (hπ : ∀ a, 0 < π a) (hπ1 : ∑ a, π a = 1) :
     ∃ C : ℝ, 0 < C ∧ ∀ (n : ℕ) (f : (Fin n → α) → ℝ),
       (∀ x, 0 < f x) → mean (tensorWeight π n) f = 1 →

@@ -1,0 +1,17 @@
+# Lake downloads and build products
+.lake/
+*.olean
+*.ilean
+*.olean.server
+*.olean.private
+
+# Local editor and operating-system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*~
+*.swp
+
+# Ad hoc local verification output; retained records are tracked explicitly
+/verification-*.log

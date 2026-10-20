@@ -200,8 +200,7 @@ lemma entropy_le_variance_div (π g : α → ℝ) (hπ0 : ∀ a, 0 ≤ π a)
   exact hs
 
 /-- A valid (nonoptimal) one-site log-Sobolev constant `4/m`, where every
-atom has weight at least `m > 0`. This avoids the manuscript's inverted
-coefficient; only the alphabet-dependent constant is enlarged. -/
+atom has weight at least `m > 0`. -/
 theorem finite_alphabet_LSI (π v : α → ℝ) (m : ℝ) (hm : 0 < m)
     (hπ : ∀ a, m ≤ π a) (hπ1 : ∑ a, π a = 1) :
     Talagrand.ent π (fun a => (v a)^2) ≤
@@ -242,7 +241,7 @@ theorem finite_alphabet_LSI (π v : α → ℝ) (m : ℝ) (hm : 0 < m)
     change mean π (fun a => (v a ^ 2)^2) - M^2 ≤ _
     nlinarith [hp]
 
-/-- The product log-Sobolev estimate used in Lemma 3. The constant depends
+/-- The product log-Sobolev estimate for the averaged profile. The constant depends
 only on the least one-coordinate mass, never on the product dimension. -/
 theorem product_LSI (π : α → ℝ) (m : ℝ) (hm : 0 < m)
     (hπ : ∀ a, m ≤ π a) (hπ1 : ∑ a, π a = 1)

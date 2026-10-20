@@ -1,7 +1,7 @@
 import TailBound.LayerDiscrepancy
 import TailBound.BandTail
 
-/-! The layer decomposition in Lemma 2. The constants here are allowed to
+/-! The starting-gap layer decomposition. The constants here are allowed to
 depend on the fixed refresh time and marginal law, as in Theorem 1. -/
 open scoped BigOperators
 open MeasureTheory intervalIntegral

@@ -1,7 +1,7 @@
 import TailBound.FixedBand
 import TailBound.SharpAverage
 
-/-! Lemma 2 with a prefactor depending only on π, uniformly in τ. -/
+/-! The fixed-band estimate with a prefactor depending only on π, uniformly in τ. -/
 open scoped BigOperators
 open MeasureTheory intervalIntegral
 namespace TailBound.RefreshData
@@ -74,7 +74,7 @@ noncomputable def sharpBandConstant : ℝ := max 8 (8*D.sharpAverageConstant)
 lemma sharpBandConstant_pos : 0 < D.sharpBandConstant :=
   lt_of_lt_of_le (by norm_num) (le_max_left _ _)
 
-/-- Manuscript Lemma 2 with its original sharp κ dependence. -/
+/-- The fixed-band estimate with the stated κ dependence. -/
 theorem fixed_band_sharp (ℓ : ℝ) (hℓ : 2 < ℓ) :
     D.startBand 2 ℓ ≤ D.sharpBandConstant*D.sharpK/Real.sqrt ℓ := by
   let g : ℝ → ℝ := fun r => Real.sqrt r*D.startBand 2 r
@@ -127,7 +127,7 @@ lemma sharpK_eq_manuscript : D.sharpK =
     (D.κ^2)^2*(Real.log D.κ/(D.κ-1)) by ring,
     Real.sqrt_mul (sq_nonneg _), Real.sqrt_sq (sq_nonneg _)]
 
-/-- Exact displayed form of Lemma 2, including its κ dependence. -/
+/-- The fixed-band estimate in its explicit κ form. -/
 theorem fixed_band_sharp_explicit (ℓ : ℝ) (hℓ : 2 < ℓ) :
     D.startBand 2 ℓ ≤ D.sharpBandConstant *
       (D.κ^2*Real.sqrt (Real.log D.κ/(D.κ-1)))/Real.sqrt ℓ := by

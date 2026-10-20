@@ -1,6 +1,6 @@
 import TailBound.BandTail
 
-/-! Normalization and the positive approximation in Lemma 1. Finiteness lets
+/-! Normalization and positive approximation for tail estimates. Finiteness lets
 us choose one positive epsilon preserving the strict tail event; no continuity
 assumption at a level-set atom is needed. -/
 open scoped BigOperators
@@ -77,7 +77,7 @@ lemma act_strictly_pos (K : Ω → Ω → ℝ) (hK : Stochastic K)
   exact (mul_pos hy (hf y)).trans_le (Finset.single_le_sum
     (fun z _ => mul_nonneg (hK.1 x z) (hf z).le) (Finset.mem_univ y))
 
-/-- Lemma 1 as a complete implication from the fixed-band bound (Lemma 2),
+/-- The tail estimate deduced from the fixed-band bound,
 including every nonnegative input and every threshold greater than one. -/
 theorem tail_estimate_from_bands (μ : Ω → ℝ) (K : Ω → Ω → ℝ)
     (hμ : ∀ x, 0 < μ x) (hmass : ∑ x, μ x = 1)

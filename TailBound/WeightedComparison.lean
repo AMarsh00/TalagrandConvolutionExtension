@@ -62,7 +62,7 @@ lemma comparisonWeight_crossing {ℓ θ j : ℝ} (s : CoupledState α n)
 namespace StoppedCoupling
 variable {D} {ℓ θ : ℝ} (C : D.StoppedCoupling ℓ θ)
 
-/-- The terminal comparison needed by Lemma 5, localized by any nonnegative
+/-- The terminal band comparison, localized by any nonnegative
 function of the starting point. It uses the manuscript's power coupling. -/
 theorem weighted_comparison (hθ : θ ≤ 2) (a φ : (Fin n → α) → ℝ)
     (ha : ∀ x, 0 ≤ a x) (hφ : ∀ x, 0 ≤ φ x) :

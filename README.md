@@ -1,124 +1,77 @@
-# Talagrand's Convolution Bound for Finite-State Markov Semigroups — a Lean 4 formalization
+# Talagrand's Convolution Bound for Finite-State Markov Semigroups
 
-A machine-checked proof of the main theorem of **Alexander Marsh, _Talagrand's Convolution Bound for Products of Finite-State Markov Semigroups_**, formalized in [Lean 4](https://lean-lang.org/) over [Mathlib](https://github.com/leanprover-community/mathlib4).
+**A Lean 4 formalization** of Alexander Marsh's *Talagrand's Convolution Bound for Products of Finite-State Markov Semigroups*.
 
-The project builds with **zero `sorry`**. The main theorem depends only on Lean's three standard axioms: `propext`, `Classical.choice`, and `Quot.sound`.
+The main theorem extends the convolution tail bound to products of arbitrary finite-state irreducible continuous Markov semigroups. The stationary law may be nonuniform, and reversibility is not required.
 
-## The theorem
+## Main result
 
-Let $S=(S_t)_{t\geq 0}$ be an irreducible continuous Markov semigroup on a finite state space $G_0$, with stationary probability measure $\pi$. For every $\tau>0$, there is a constant $C_{\tau,S,\pi}>0$ such that, for every dimension $N$, every nonnegative function $f:G_0^N\to\mathbb R$, and every $\eta>1$,
+Let $(S_t)_{t\geq0}$ be such a semigroup, with stationary probability measure $\pi$. For each $\tau>0$, there is $C_{\tau,S,\pi}>0$ such that, for every dimension $N$, every nonnegative $f$, and every $\eta>1$,
 
 $$
-\pi^{\otimes N}\!\left(\left\{x:S_\tau^{\otimes N}f(x)>\eta\int f\,d\pi^{\otimes N}\right\}\right)
+\pi^{\otimes N}\!\left(S_\tau^{\otimes N}f>\eta\int f\,d\pi^{\otimes N}\right)
 \leq \frac{C_{\tau,S,\pi}}{\eta\sqrt{\log\eta}}.
 $$
 
-The constant is chosen **before the dimension** and is independent of $N$, $f$, and $\eta$. The stationary measure need not be uniform, and the semigroup need not be reversible.
-
-The proof first establishes the bound for weighted coordinate-refresh semigroups, then transfers it to strictly positive stationary kernels. Irreducibility and continuity supply the positive-time kernel positivity needed for the main theorem. These ingredients are proved in the project; the refresh tail bound is not assumed.
-
-## Where the main theorem is
-
-The main result is in [`TailBound/MainTheorem.lean`](TailBound/MainTheorem.lean):
+The constant is independent of $N$, $f$, and $\eta$.
 
 ```lean
 theorem TailBound.main_theorem : TailBound.ManuscriptTheorem1
 ```
 
-[`TailBound/MainStatement.lean`](TailBound/MainStatement.lean) defines the finite-state semigroup, irreducibility, stationarity, and the target proposition. The finite-sum definitions of product kernels, expectations, and tail probabilities are in [`TailBound/Core.lean`](TailBound/Core.lean).
+The [statement](TailBound/MainStatement.lean) specifies the hypotheses and quantifier order; the [proof](TailBound/MainTheorem.lean) combines the refresh bound with the positive-kernel reduction. The refresh estimate, positive-time kernel positivity, and stationary full support are all proved within the development.
 
-In particular, `DimensionFreeTail` has the quantifier order
+## Correspondence with the paper
 
-```lean
-∃ C, 0 < C ∧ ∀ (n : ℕ),
-  TailBound.TailEstimate
-    (TailBound.tensorWeight π n)
-    (TailBound.tensorKernel K n) C
-```
+The definitions underlying `main_theorem` match **Theorem 1.1** of the manuscript: the same finite-state semigroup, stationary product law, tensor-product operator, nonnegative inputs, strict tail event, and dimension-independent constant.
 
-so the formal statement explicitly requires one common constant for every dimension.
+| Paper | Lean |
+| --- | --- |
+| $G_0$ and $G_0^N$ | A finite type `α` and `Fin n → α` |
+| $\pi^{\otimes N}$ | `tensorWeight π n` |
+| $\int f\,d\pi^{\otimes N}$ | `mean (tensorWeight π n) f` |
+| $S_\tau^{\otimes N}f$ | `act (tensorKernel (S.kernel τ) n) f` |
+| Probability of the strict tail event | `eventMass` with `η * mean π f < act K f x` |
+| One constant for every dimension | `DimensionFreeTail`: `∃ C > 0, ∀ n, ...` |
+| $P_t^\pi f$ in Eq. (2.1) | `heat π f t` |
+| The unit-band profile in Eq. (3.1) | `bandMass (tensorWeight π n) (heat π f t) ℓ` |
 
-The refresh-band estimate also retains the manuscript's dependence on $\kappa$:
+Lean also includes the harmless case `n = 0`. The main theorem assumes neither strict positivity nor normalization of `f`; those assumptions are used only in intermediate estimates.
 
-$$
-K(\kappa)=\kappa^2\sqrt{\frac{\log\kappa}{\kappa-1}}.
-$$
+The [detailed correspondence](docs/CORRESPONDENCE.md) records the substitutions for the reverse density, coupling, bridge law, and constants. Some proof objects use different representations: the coupling uses finite master equations with $T_0=2$, and the terminal comparison uses a lower weight after stopping. Thus the main theorem matches the paper, while the formalization does not assert a literal translation of every stochastic definition or every numerical prefactor.
 
-Its prefactor depends only on the marginal law and is uniform in time, dimension, density, and band level. The relevant declarations are
+## Build and check
 
-```lean
-TailBound.lemma2_sharp
-TailBound.RefreshData.fixed_band_sharp_explicit
-```
-
-The main theorem uses this estimate. See [`sharp-lemma2.md`](sharp-lemma2.md) for the explicit prefactor and proof map.
-
-## How to verify the proof
-
-Install [`elan`](https://github.com/leanprover/elan), the Lean toolchain manager, then run:
+Install [elan](https://github.com/leanprover/elan), then run from the project directory:
 
 ```bash
-git clone https://github.com/AMarsh00/TalagrandConvolutionExtension.git
-cd TalagrandConvolutionExtension
 lake exe cache get
 lake build
+lake env lean checks/MainCheck.lean
+lake env lean checks/SharpCheck.lean
+lake env lean checks/AxiomsCheck.lean
 ```
 
-If using a source archive, run the two `lake` commands from the extracted project directory. The toolchain is pinned to **Lean 4.29.1**, with **Mathlib v4.29.1**; `lean-toolchain` and `lake-manifest.json` record the environment.
-
-The build should finish without errors or `sorry` warnings. Then inspect the theorem statements and their axiom dependencies:
-
-```bash
-lake env lean MainCheck.lean
-lake env lean SharpCheck.lean
-lake env lean AxiomsCheck.lean
-```
-
-The main-theorem audit reports:
+The project pins **Lean 4.29.1** and **Mathlib v4.29.1**. The recorded verification contains no admitted proofs, and the main theorem reports:
 
 ```text
 'TailBound.main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
 ```
 
-`MainCheck.lean` also prints the definitions underlying the theorem, while `SharpCheck.lean` checks the refined band estimate. The full audit covers all **477 lemma/theorem declarations** in the recorded verification snapshot. No admitted proofs, custom axioms, or `native_decide` proofs occur in the project.
+The [GitHub workflow](.github/workflows/lean.yml) builds the project and runs these checks on pushes and pull requests. The [verification guide](docs/VERIFICATION.md) explains the checks and the retained build records.
 
-The verification records dated **17 October 2026 UTC** are retained in `verification-build.log`, `verification-main.log`, `verification-sharp.log`, `verification-axioms.log`, and `verification-summary.json`.
+## Reading the proof
 
-## Proof structure
+Start with [MainStatement.lean](TailBound/MainStatement.lean) and [Core.lean](TailBound/Core.lean) for the statement and finite-sum definitions. The proof proceeds through weighted refresh analysis, the stopped reverse-heat coupling, conditional bridge estimates, and a layerwise band recurrence.
 
-The proof follows the manuscript's refresh reduction, switched-power coupling, endpoint bridge comparison, stopped-score estimate, layer averaging, and band recurrence.
+- [Proof map](docs/PROOF_MAP.md): the main modules and their roles.
+- [Band estimate](docs/BAND_ESTIMATE.md): the factor $\kappa^2\sqrt{\log\kappa/(\kappa-1)}$ and an explicit marginal-dependent prefactor.
+- [Formalization scope](docs/FORMALIZATION.md): correspondence with the probabilistic proof.
 
-| Stage | Main files |
-| --- | --- |
-| Weighted refresh analysis, entropy, and averaged profiles | [Heat](TailBound/Heat.lean), [Entropy](TailBound/Entropy.lean), [Profile](TailBound/Profile.lean) |
-| Reverse evolution and stopped coupling | [Reverse](TailBound/Reverse.lean), [JumpFlow](TailBound/JumpFlow.lean), [Coupling](TailBound/Coupling.lean), [CouplingSupport](TailBound/CouplingSupport.lean) |
-| Stopped score and power-weight comparison | [StoppedScore](TailBound/StoppedScore.lean), [PowerWeight](TailBound/PowerWeight.lean), [WeightedComparison](TailBound/WeightedComparison.lean) |
-| Full conditional bridge distributions and horizontal energy | [BridgeDynamics](TailBound/BridgeDynamics.lean), [BridgeChi](TailBound/BridgeChi.lean), [BridgeHorizontal](TailBound/BridgeHorizontal.lean) |
-| Conditioned generators, Duhamel identity, and localized discrepancy | [EndpointBridge](TailBound/EndpointBridge.lean), [BridgeDuhamel](TailBound/BridgeDuhamel.lean), [IntegratedPerturbation](TailBound/IntegratedPerturbation.lean), [LocalizedTV](TailBound/LocalizedTV.lean) |
-| Layer averaging and the band recurrence | [LayerAveraging](TailBound/LayerAveraging.lean), [AveragedError](TailBound/AveragedError.lean), [SharpBand](TailBound/SharpBand.lean), [FixedBand](TailBound/FixedBand.lean) |
-| Tail summation and nonnegative inputs | [BandTail](TailBound/BandTail.lean), [PositiveApproximation](TailBound/PositiveApproximation.lean), [RefreshTail](TailBound/RefreshTail.lean) |
-| Positive-kernel reduction and the main theorem | [PositiveKernel](TailBound/PositiveKernel.lean), [ContinuousPositivity](TailBound/ContinuousPositivity.lean), [MainTheorem](TailBound/MainTheorem.lean) |
+The coupling is represented by finite master equations and barrier transfers. The development proves the main theorem without separately constructing a PRM path space or its filtrations.
 
-The coupling is formalized through **finite master equations and barrier transfers**. This supplies the evolution, stopping, and comparison identities needed by the proof; the project does not separately formalize a Poisson-random-measure path space or its filtrations.
+## Acknowledgments
 
-The main theorem's hypotheses, conclusion, and quantifier order are preserved. Intermediate numerical constants are not all identical to the manuscript's: the formalization uses valid, sometimes coarser marginal-dependent constants, while retaining the stated $\kappa$ dependence of the band estimate.
+This project uses the [Boolean Lean development](https://github.com/junwei-lu/TalagrandConvolutionConjecture) accompanying Junwei Lu, Shengtao Guo, and Ethan X. Fang's *Weak-Type Bounds for Convolution on the Boolean Hypercube*. It reuses general analytic tools and adapts the band argument to weighted finite alphabets; its Boolean headline theorem is not used to prove this result. The dependency is pinned in [lake-manifest.json](lake-manifest.json).
 
-## Dependencies and acknowledgments
-
-The project builds on the Lean development accompanying **Junwei Lu, Shengtao Guo, and Ethan X. Fang, _Weak-Type Bounds for Convolution on the Boolean Hypercube_**:
-
-- [Paper](https://arxiv.org/abs/2608.15515)
-- [Lean repository](https://github.com/junwei-lu/TalagrandConvolutionConjecture)
-
-That development is pinned to commit `6488afd9f5f94f40766c6915c6e4e4f8de15ada7`. It supplies generic finite-space entropy, scalar power inequalities, cutoff calculus, finite-exception integration, and finite linear-ODE lemmas. Its band-summation and bootstrap arguments are adapted to the weighted finite alphabet. **Its Boolean headline theorem is not used to prove this project's main theorem.**
-
-The weighted finite-alphabet extensions, including the full conditional bridge comparison, are proved here. The underlying reverse-heat and layerwise methods build on work of Yuansi Chen and of Yanjin Xiang and Zhihua Zhang, as discussed in the manuscript.
-
-<details>
-<summary>Recorded verification environment</summary>
-
-Mathlib is pinned to commit `5e932f97dd25535344f80f9dd8da3aab83df0fe6` (v4.29.1). Downloaded dependencies and compiled caches are omitted from the source archive and restored by Lake.
-
-The container used for the recorded verification required a small `readlink` compatibility shim because its numeric `/proc/<current-pid>/exe` path did not resolve. The shim redirects only the current process's own executable path to `/proc/self/exe`. Lean's kernel, tactics, and proof objects were unchanged. The source is in [`verification-environment/proc_self.c`](verification-environment/proc_self.c); ordinary Lean installations do not need it.
-
-</details>
+The weighted finite-alphabet estimates and full conditional bridge comparison are proved here. The underlying reverse-heat and layerwise methods build on work of Yuansi Chen and of Yanjin Xiang and Zhihua Zhang.

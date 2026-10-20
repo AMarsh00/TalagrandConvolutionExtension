@@ -1,7 +1,7 @@
 import TailBound.BandPartition
 import TailBound.SmallThreshold
 
-/-! The finite geometric-band argument of Lemma 1, for arbitrary weights.
+/-! Geometric-band summation for arbitrary probability weights.
 This is the same layer-cake argument used in the Boolean development's Main.lean;
 no uniform-measure or cube-specific theorem is assumed. -/
 open scoped BigOperators

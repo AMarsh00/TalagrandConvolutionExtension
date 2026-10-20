@@ -1,6 +1,6 @@
 import TailBound.AveragedError
 
-/-! The good-start-time and bounded-supremum bootstrap of Lemma 2.
+/-! Good starting times and the bounded-supremum bootstrap.
 The argument is the Boolean fixed-band proof with the checked weighted
 profile, score and discrepancy inputs. -/
 open scoped BigOperators
@@ -89,7 +89,7 @@ noncomputable def bandConstant : ℝ := max 8 (8*D.averageConstant)
 
 lemma bandConstant_pos : 0 < D.bandConstant := lt_of_lt_of_le (by norm_num) (le_max_left _ _)
 
-/-- Lemma 2, for an arbitrary finite alphabet and probability weights. The
+/-- A fixed-band bound for an arbitrary finite alphabet and probability weights. The
 constant depends only on the marginal data and the fixed refresh time. -/
 theorem fixed_band (ℓ : ℝ) (hℓ : 2 < ℓ) :
     D.startBand 2 ℓ ≤ D.bandConstant/Real.sqrt ℓ := by

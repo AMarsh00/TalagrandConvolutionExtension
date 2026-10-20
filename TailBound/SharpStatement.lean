@@ -1,6 +1,6 @@
 import TailBound.SharpBand
 
-/-! A standalone statement of manuscript Lemma 2. The prefactor is chosen
+/-! A standalone statement of the fixed-band estimate. The prefactor is chosen
 before the time, dimension, density and level, so its uniformity is explicit. -/
 open scoped BigOperators
 namespace TailBound
@@ -15,7 +15,7 @@ lemma marginalBandConstant_pos (d : ℕ) (m : ℝ) : 0 < marginalBandConstant d 
 noncomputable def refreshRatioBound (m M τ : ℝ) : ℝ :=
   (Real.exp (-τ)+(1-Real.exp (-τ))*M)/((1-Real.exp (-τ))*m)
 
-/-- Lemma 2, with the exact claimed κ dependence and an explicit π-only constant. -/
+/-- The fixed-band estimate with the stated κ dependence and an explicit π-only constant. -/
 theorem lemma2_sharp_of_bounds (π : α → ℝ) (m M : ℝ)
     (hm : 0 < m) (hlower : ∀ x, m ≤ π x) (hupper : ∀ x, π x ≤ M)
     (hmass : ∑ x, π x = 1) (τ : ℝ) (hτ : 0 < τ) (n : ℕ)

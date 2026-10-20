@@ -6,13 +6,12 @@ import Mathlib.Tactic.Positivity
 import Mathlib.Tactic.Ring
 
 /-!
-# Checked deterministic core of Tail_Bound_Idea (2).pdf
+# Finite kernels, tensorization, and scalar estimates
 
 This core module proves the deterministic reduction. `refresh_to_kernel`
 takes the refresh estimate as an explicit hypothesis, which is discharged in
 `RefreshTail.lean`. The full continuous-time main theorem is proved in
 `MainTheorem.lean`. See README.md for the representation and constants.
-There are no admitted proofs or new axioms in this file.
 -/
 
 open scoped BigOperators
@@ -58,8 +57,8 @@ lemma act_comp (K R : α → α → ℝ) (f : α → ℝ) :
   simp only [act, comp, Finset.sum_mul, Finset.mul_sum, mul_assoc]
   exact Finset.sum_comm
 
-/-! ## Doeblin factorization, manuscript p. 2
-Only Markov kernels are needed; no embeddability claim is made.
+/-! ## Doeblin factorization
+The residual is a stationary Markov kernel.
 -/
 
 noncomputable def residual (π : α → ℝ) (K : α → α → ℝ)
@@ -173,8 +172,8 @@ lemma tail_transfer (π : α → ℝ) (Q R : α → α → ℝ) (C : ℝ)
   rw [mean_act π R hstat f] at h
   simpa only [act_comp] using h
 
-/-- Theorem 1's deterministic reduction, CONDITIONAL on Lemma 1 for the
-refresh kernel with parameter ε. This is not an unconditional main theorem. -/
+/-- Transfer a tail estimate for the refresh kernel to a stationary kernel
+with minorization parameter ε. `refresh_tail` supplies the refresh estimate. -/
 theorem refresh_to_kernel (π : α → ℝ) (K : α → α → ℝ) (ε : ℝ)
     (hπ : ∑ x, π x = 1) (hK : ∀ x, ∑ y, K x y = 1)
     (hstat : Stationary π K) (hε : ε < 1)
@@ -193,7 +192,7 @@ theorem refresh_to_kernel (π : α → ℝ) (K : α → α → ℝ) (ε : ℝ)
   rw [← tensor_comp, hfac] at ht
   exact ht
 
-/-! ## Dirichlet-form sign, manuscript pp. 8-9 -/
+/-! ## Dirichlet-form symmetrization -/
 
 theorem dirichlet_symmetrization (c : α → α → ℝ) (f : α → ℝ)
     (hsym : ∀ x y, c x y = c y x) :
@@ -227,7 +226,7 @@ theorem dirichlet_nonneg (c : α → α → ℝ) (f : α → ℝ)
   exact Finset.sum_nonneg fun x _ =>
     Finset.sum_nonneg fun y _ => mul_nonneg (hc x y) (sq_nonneg _)
 
-/-! ## Replacing a coordinate is not an involution (pp. 23 and 38). -/
+/-! ## Coordinate replacement identities -/
 
 variable {ι : Type*} [DecidableEq ι]
 
@@ -259,7 +258,7 @@ lemma reciprocal_update_ratio (p : (ι → α) → ℝ) (x : ι → α) (i : ι)
     by_cases h : j = i <;> simp [h]
   rw [hrestore, inv_div]
 
-/-! ## Conditional bridge law: finite one-coordinate algebra, pp. 18-19. -/
+/-! ## One-coordinate conditional bridge law -/
 
 noncomputable def bridgeH (π : α → ℝ) (a : ℝ) (z x : α) : ℝ :=
   a * (if x = z then 1 else 0) + (1 - a) * π z
@@ -312,7 +311,7 @@ lemma bridgeLaw_nonneg (π : α → ℝ) (hπ : ∀ u, 0 ≤ π u)
   · apply hb (r * a) (mul_nonneg hr.1 ha.1)
     nlinarith [mul_nonneg (sub_nonneg.mpr hr.2) ha.1]
 
-/-! ## Scalar steps in Lemmas 5 and 6 and the final recurrence -/
+/-! ## Scalar estimates for the score and band recurrence -/
 
 theorem stopped_score_rescaling (κ Λ R S : ℝ) (hκ : 1 < κ) (hR : 0 ≤ R)
     (hΛ : Λ = κ * Real.log κ / (κ - 1))
@@ -351,7 +350,7 @@ theorem band_exponent_after_stop (ell R alpha delta w v z : ℝ) (j : ℝ)
     alpha + j - 1 < w - v + delta * (z - (ell - R)) := by
   nlinarith [mul_nonneg hd0 (sub_nonneg.mpr hz)]
 
-/-! ## Variance <= 1/4, the second inequality in Lemma 18 -/
+/-! ## Variance bound for a function with values in [0,1] -/
 
 theorem variance_le_quarter (π f : α → ℝ) (hπ : ∀ x, 0 ≤ π x)
     (hf : ∀ x, 0 ≤ f x ∧ f x ≤ 1) :
@@ -363,8 +362,7 @@ theorem variance_le_quarter (π f : α → ℝ) (hπ : ∀ x, 0 ≤ π x)
     nlinarith [(hf x).1, (hf x).2]
   nlinarith [sq_nonneg (mean π f - 1 / 2)]
 
-/-! ## The scalar drift cancellation behind Lemma 13 (p. 32).
-This proves the AM-GM sign, not the stochastic supermartingale theorem.
+/-! ## Scalar drift cancellation by the weighted AM-GM inequality
 -/
 
 theorem switched_drift_nonpos (r δ : ℝ) (hr : 0 ≤ r)
@@ -376,8 +374,8 @@ theorem switched_drift_nonpos (r δ : ℝ) (hr : 0 ≤ r)
   simp only [Real.one_rpow, one_mul, mul_one] at h
   linarith
 
-/-! ## Machine-checked counterexamples to three printed lines.
-These are counterexamples to intermediate statements, not to Theorem 1.
+/-! ## Examples distinguishing signs, coordinate updates, and LSI constants
+These four examples record the need for the conventions used above.
 -/
 
 theorem wrong_dirichlet_sign_counterexample :
@@ -402,8 +400,8 @@ theorem wrong_increment_counterexample :
   norm_num [dxy, dx, dy]
 
 /-- For π=(1/3,2/3) and f=(1,0), Ent(f²)=log(3)/3 and
-E(f,f)=2/9. The manuscript's inverted coefficient is 1/(3 log 2).
-Thus the printed inequality fails even with a nonzero denominator. -/
+E(f,f)=2/9. The coefficient 1/(3 log 2) is too small for the
+log-Sobolev inequality with this Dirichlet-form convention. -/
 theorem inverted_log_sobolev_counterexample :
     ((1 / 3 : ℝ) / Real.log 2) * (2 / 9) < (1 / 3 : ℝ) * Real.log 3 := by
   have h2 : (1 / 2 : ℝ) ≤ Real.log 2 := by

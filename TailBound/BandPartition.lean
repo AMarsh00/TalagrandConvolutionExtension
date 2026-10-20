@@ -100,7 +100,7 @@ lemma bandA_le_bandB_tv (r : ℝ) :
   change |C.bandB r-C.bandA r| ≤ _ at hh
   linarith [(abs_le.mp hh).1]
 
-/-- Lemma 5 as a finite sum; all larger bands are empty when hM holds. -/
+/-- Finite-sum band contraction; all larger bands are empty when hM holds. -/
 theorem band_contraction (hθ : θ ≤ 2) (M : ℕ) (hM : ∀ x, D.logP 2 x ≤ ℓ+M+1) :
     (1-Real.exp (-4))*C.bandA ℓ ≤
       Real.exp (-4)*(∑ j ∈ Finset.Icc 1 M, Real.exp (-(j:ℝ))*C.bandA (ℓ+j))+

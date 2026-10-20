@@ -1,6 +1,6 @@
 import TailBound.LayerAveraging
 
-/-! The inactive starting event in Lemma 2, using the same exponential
+/-! The inactive starting event, using the same exponential
 inverse-density bound as in the Boolean fixed-band proof. -/
 open scoped BigOperators
 namespace TailBound.RefreshData

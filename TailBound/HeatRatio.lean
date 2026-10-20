@@ -1,6 +1,6 @@
 import TailBound.Core
 
-/-! The corrected replacement-coordinate estimate, Lemma 17, p. 38.
+/-! Uniform heat-ratio bounds under coordinate replacement.
 `a` is the retention probability exp(-(T-t)); `A` is exp(-τ).
 Thus the relevant hypothesis is `a ≤ A`, or `T-t ≥ τ`.
 -/
@@ -101,7 +101,7 @@ theorem refresh_coordinate_bound (π : α → ℝ) (m M A a : ℝ)
       (A + (1 - A) * M) * refresh π (1 - a) x u := by nlinarith
   simpa only [div_mul_eq_mul_div] using (le_div_iff₀ hd).mpr hr
 
-/-- Lemma 17 with the corrected time condition and reverse replacement.
+/-- Replacement-ratio bounds under a lower bound on remaining time.
 The same κ works in every dimension and for every nonzero nonnegative f. -/
 theorem heat_replacement_ratio (π : α → ℝ) (m M A a : ℝ)
     (hm : 0 < m) (hmin : ∀ u, m ≤ π u) (hmax : ∀ u, π u ≤ M)
@@ -144,7 +144,7 @@ theorem heat_replacement_ratio (π : α → ℝ) (m M A a : ℝ)
     exact hlower
   · exact (div_le_iff₀ (hp x)).mpr hupper
 
-/-- Lemma 17 in the manuscript's time variables. -/
+/-- Replacement-ratio bounds in the reverse-time parametrization. -/
 theorem heat_replacement_ratio_time (π : α → ℝ) (m M τ T t : ℝ)
     (hm : 0 < m) (hmin : ∀ u, m ≤ π u) (hmax : ∀ u, π u ≤ M)
     (hτ : 0 < τ) (ht : τ ≤ T - t)

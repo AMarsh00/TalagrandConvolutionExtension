@@ -1,7 +1,7 @@
 import TailBound.LevelOne
 
 /-!
-The finite-alphabet bridge calculation used in Lemma 12.
+Conditional bridge calculations on a finite alphabet.
 
 This file works with the explicit bridge law, including the two different
 horizontal increments. Coordinate replacement is never treated as a flip.
@@ -89,7 +89,7 @@ lemma bridgeLaw_pos (π : α → ℝ) (hπ : ∀ u, 0 < π u)
   have h := mul_pos (mul_pos (sub_pos.mpr hr1) (hπ u)) huu
   split_ifs <;> nlinarith
 
-/-- The corrected identity on manuscript p. 19, with no extra factor π(z). -/
+/-- Difference of the one-coordinate bridge laws. -/
 lemma bridgeLaw_difference (π : α → ℝ) (a r : ℝ)
     (z x g y u : α)
     (hx : bridgeH π (r * a) z x ≠ 0)
@@ -106,7 +106,7 @@ lemma bridgeLaw_difference (π : α → ℝ) (a r : ℝ)
 
 variable {β : Type*} [Fintype β]
 
-/-- The dimension-free Cauchy--Schwarz/Bessel step on pp. 16--17.
+/-- Dimension-free Cauchy--Schwarz and Bessel estimate.
 The two marginal laws can be different from the reference law in the changed
 coordinate; all other coordinates retain the reference law. -/
 theorem product_perturbation_energy

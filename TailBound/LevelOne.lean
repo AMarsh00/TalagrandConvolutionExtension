@@ -1,6 +1,6 @@
 import TailBound.Core
 
-/-! Finite-product first-order projection inequality (Lemma 18).
+/-! Finite-product first-order projection inequality.
 The square expansion below is the finite-dimensional Bessel inequality
 used by the manuscript's Parseval argument. No probabilistic independence
 or conditional-expectation facts are postulated: product moments and
@@ -159,7 +159,7 @@ lemma finite_bessel (μ F : Ω → ℝ) (hμ : ∀ x, 0 ≤ μ x)
   rw [hFC, hCC] at hexp
   linarith
 
-/-- Lemma 18's first inequality, for any real-valued function and
+/-- The first-order projection inequality for any real-valued function and
 finite product probability law. There is no assumed Parseval identity. -/
 theorem level_one_product (π : ι → α → ℝ)
     (hπnonneg : ∀ i a, 0 ≤ π i a) (hπmass : ∀ i, ∑ a, π i a = 1)
@@ -220,7 +220,7 @@ theorem level_one_product (π : ι → α → ℝ)
   rw [hs] at hb
   exact hb
 
-/-- The complete conclusion of Lemma 18, including zero-weight atoms. -/
+/-- The first-order projection and variance bounds, including zero-weight atoms. -/
 theorem level_one_product_le_quarter (π : ι → α → ℝ)
     (hπnonneg : ∀ i a, 0 ≤ π i a) (hπmass : ∀ i, ∑ a, π i a = 1)
     (f : (ι → α) → ℝ) (hf : ∀ x, 0 ≤ f x ∧ f x ≤ 1) :

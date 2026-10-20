@@ -1,6 +1,6 @@
 import TailBound.Core
 
-/-! The missing small-threshold case in the proof of Lemma 1, p. 3. -/
+/-! Markov bounds for small tail thresholds. -/
 
 open scoped BigOperators
 namespace TailBound
@@ -25,7 +25,7 @@ theorem finite_markov_bound (π p : α → ℝ) (hπ : ∀ x, 0 ≤ π x)
     exact mul_nonneg (hπ x) (hp x)
 
 /-- For `1 < η ≤ exp 2`, ordinary Markov supplies the required estimate.
-The band estimate in Lemma 2 is only needed for `log η > 2`. -/
+The fixed-band estimate is only needed for `log η > 2`. -/
 theorem small_threshold_tail (π p : α → ℝ) (hπ : ∀ x, 0 ≤ π x)
     (hp : ∀ x, 0 ≤ p x) (hm : mean π p = 1)
     (η : ℝ) (hη : 1 < η) (hlog : Real.log η ≤ 2) :

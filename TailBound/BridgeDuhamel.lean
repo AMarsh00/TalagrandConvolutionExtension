@@ -191,7 +191,7 @@ theorem duhamel_initial (a φ : (Fin n → α) → ℝ) :
   have hh := C.dynkin_eq F dF _ hd hH hgen (fun _ _ _ => rfl)
   simpa only [F,D.bridgeU_terminal] using hh
 
-/-- Lemma 11's localized Duhamel identity for the actual stopped coupling. -/
+/-- Localized Duhamel identity for the stopped coupling. -/
 theorem duhamel (a φ : (Fin n → α) → ℝ) :
     (∑ s, C.terminal s*(a s.start*φ s.w))-(∑ s, C.terminal s*(a s.start*φ s.v)) =
       C.integrate (fun t s => a s.start*D.perturbU φ ℓ θ t s) := by

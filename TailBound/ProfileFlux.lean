@@ -1,7 +1,7 @@
 import TailBound.ProductCalculus
 import TailBound.ProfileEntropy
 
-/-! Threshold flux and dissipation for Lemma 3. Endpoint values of the flux
+/-! Threshold flux and dissipation for the averaged profile. Endpoint values of the flux
 are included; the finite crossing set is excluded when applying the FTC. -/
 
 open scoped BigOperators

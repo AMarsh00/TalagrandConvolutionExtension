@@ -3,7 +3,7 @@ import TailBound.PositiveApproximation
 import TailBound.MainStatement
 import TailBound.PositiveKernel
 
-/-! Lemmas 1 and 2 combined: the unconditional finite-alphabet refresh tail. -/
+/-! The finite-alphabet refresh tail and its transfer to positive stationary kernels. -/
 open scoped BigOperators
 namespace TailBound
 variable {α : Type*} [Fintype α] [DecidableEq α]

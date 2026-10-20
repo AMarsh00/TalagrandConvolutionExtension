@@ -137,7 +137,7 @@ noncomputable def scoreWork (a : (Fin n → α) → ℝ) : ℝ :=
   ∑ k ∈ Finset.range C.grid.K, ∫ t in C.grid.z k..C.grid.z (k+1),
     C.pairing k t (fun s => a s.start * (if s.alive then D.score t s.v else 0))
 
-/-- Lemma 6 in localized integral form. Taking a singleton starting event
+/-- The stopped-score estimate in localized integral form. Taking a singleton starting event
 gives its conditional form; arbitrary nonnegative weights are allowed. -/
 theorem stopped_score (hθ : θ ≤ 2) (a : (Fin n → α) → ℝ)
     (ha : ∀ x, 0 ≤ a x) :

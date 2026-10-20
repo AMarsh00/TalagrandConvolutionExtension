@@ -1,6 +1,6 @@
 import TailBound.Core
 
-/-! Finite generator algebra and uniform rate bound for Lemmas 8, 10 and 16.
+/-! Finite generator algebra and uniform bounds for switched rates.
 These identities do not themselves construct the stochastic processes.
 -/
 
@@ -12,7 +12,7 @@ variable {α : Type*} [Fintype α]
 noncomputable def generator (q : α → α → ℝ) (f : α → ℝ) (x : α) : ℝ :=
   ∑ y, q x y * (f y - f x)
 
-/-- The algebraic identity in the proof of the reversed generator, p. 38. -/
+/-- Density-transform identity for the reversed generator. -/
 theorem reverse_generator_identity (q : α → α → ℝ) (p f : α → ℝ)
     (x : α) (hp : p x ≠ 0) :
     generator q (fun y => p y * f y) x / p x -
@@ -31,7 +31,7 @@ theorem conditioned_rate_cancellation (px py hx hy c : ℝ)
     (py / px) * ((c * hy / py) / (c * hx / px)) = hy / hx := by
   field_simp
 
-/-- The difference between the coupled and synchronous generators, p. 26. -/
+/-- Difference between the coupled and synchronous generators. -/
 theorem coupled_generator_difference (a b r dxy dx dy : ℝ) :
     r * min a b * dxy + r * max (a - b) 0 * dx + max (b - a) 0 * dy -
       r * a * dxy =
@@ -42,7 +42,7 @@ theorem coupled_generator_difference (a b r dxy dx dy : ℝ) :
   · rw [min_eq_right h, max_eq_left (sub_nonneg.mpr h)]
     ring
 
-/-- The square identity used in Dynkin's formula for Lemma 12. -/
+/-- The square identity used in the quadratic Dynkin formula. -/
 theorem generator_square (q : α → α → ℝ) (f : α → ℝ) (x : α) :
     generator q (fun y => (f y)^2) x - 2 * f x * generator q f x =
       ∑ y, q x y * (f y - f x)^2 := by
@@ -55,8 +55,7 @@ theorem generator_square (q : α → α → ℝ) (f : α → ℝ) (x : α) :
 noncomputable def switchedPower (δ r : ℝ) : ℝ :=
   if r ≤ 1 then r + 1 - r ^ δ else r ^ (1 - δ)
 
-/-- A uniform bound repairs the nonexplosion argument on p. 11.
-Pointwise finiteness of each instantaneous rate would not suffice. -/
+/-- Uniform positivity and upper bounds for the switched-power rate. -/
 theorem switchedPower_bounds (δ r : ℝ) (hr : 0 < r)
     (hδ0 : 0 ≤ δ) (hδ1 : δ ≤ 1) :
     0 < switchedPower δ r ∧ switchedPower δ r ≤ max 1 r := by

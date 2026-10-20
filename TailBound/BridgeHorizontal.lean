@@ -1,8 +1,8 @@
 import TailBound.BridgeChi
 
 /-! Dimension-free horizontal energy estimate for the explicit product bridge.
-This is the deterministic estimate under the integral in Lemma 12.
-Identification with the stopped coupled process is a separate obligation.
+The integrated estimate for the stopped coupling is proved in
+`IntegratedHorizontal.lean`.
 -/
 
 open scoped BigOperators

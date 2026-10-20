@@ -1,6 +1,6 @@
 import TailBound.Core
 
-/-! Corrected threshold-flux symmetrization for Lemma 3, pp. 8-10. -/
+/-! Threshold-flux symmetrization and nonnegativity. -/
 
 open scoped BigOperators
 namespace TailBound
@@ -33,7 +33,7 @@ lemma threshold_pair (u x y : ℝ) :
 
 variable {α : Type*} [Fintype α]
 
-/-- The nonnegative flux that replaces the incorrect signed expression on p. 9. -/
+/-- Nonnegative level-crossing flux. -/
 theorem threshold_flux_symmetrization (c : α → α → ℝ) (p : α → ℝ) (u : ℝ)
     (hsym : ∀ x y, c x y = c y x) :
     -(∑ x, ∑ y, c x y * threshold u (p x) * (p y - p x)) =

@@ -2,7 +2,7 @@ import TailBound.JumpFlow
 import TailBound.Generators
 import TalagrandConvConjecture.PowerCoupling
 
-/-! Reverse heat data and the entropy-production drift used in Lemma 6.
+/-! Reverse heat data and the entropy-production drift.
 All fields of `RefreshData` describe the input probability law and density;
 none assumes an analytic estimate or a conclusion of the manuscript.
 -/
