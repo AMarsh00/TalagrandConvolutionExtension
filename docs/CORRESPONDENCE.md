@@ -1,6 +1,6 @@
 # Correspondence with the manuscript
 
-This comparison uses the 29-page manuscript supplied on 20 October 2026 (`Tail_Bound_Idea (16).pdf`) and the accompanying source archive (`TalagrandConvolutionExtension-github-ready (1)(1).zip`), with Theorem 1.1, Eq. (2.1), and Eq. (3.1). It checks the mathematical interpretation of the Lean definitions against the paper. Compilation checks Lean's formal deductions; this comparison separately checks what those definitions mean.
+This comparison checks the mathematical interpretation of the Lean definitions against the paper. Compilation checks Lean's formal deductions; this comparison separately checks what those definitions mean.
 
 ## Main theorem
 
