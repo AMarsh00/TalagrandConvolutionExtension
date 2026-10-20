@@ -1,6 +1,6 @@
 # Correspondence with the manuscript
 
-This comparison uses the 31-page manuscript version supplied on 19 October 2026, with Theorem 1.1, Eq. (2.1), and Eq. (3.1). It checks the mathematical interpretation of the Lean definitions against the paper. Compilation checks Lean's formal deductions; this comparison separately checks what those definitions mean.
+This comparison uses the 29-page manuscript supplied on 20 October 2026 (`Tail_Bound_Idea (16).pdf`) and the accompanying source archive (`TalagrandConvolutionExtension-github-ready (1)(1).zip`), with Theorem 1.1, Eq. (2.1), and Eq. (3.1). It checks the mathematical interpretation of the Lean definitions against the paper. Compilation checks Lean's formal deductions; this comparison separately checks what those definitions mean.
 
 ## Main theorem
 
@@ -50,7 +50,7 @@ This is Theorem 1.1 in finite-sum notation. In particular:
 [Heat.lean](../TailBound/Heat.lean) defines
 
 $$
-\operatorname{heatKernel}(\pi,a)(x,y)
+\mathrm{heatKernel}(\pi,a)(x,y)
 =\pi(y)+a(\mathbf1_{x=y}-\pi(y))
 =a\mathbf1_{x=y}+(1-a)\pi(y).
 $$
@@ -60,7 +60,7 @@ $$
 [ProfileEntropy.lean](../TailBound/ProfileEntropy.lean) defines
 
 $$
-\operatorname{bandMass}(\mu,F,\ell)
+\mathrm{bandMass}(\mu,F,\ell)
 =\sum_x\mu(x)F(x)\mathbf1_{\{\ell<\log F(x)\leq\ell+1\}}.
 $$
 
@@ -101,16 +101,16 @@ These are the rates obtained from the shared PRMs in the paper. `CoupledState` r
 In [Core.lean](../TailBound/Core.lean), put $a=e^{-\tau}$ and $r=e^{-(T_0-t)}$. Then
 
 $$
-\operatorname{bridgeH}(\pi,ra,z,x)=h_t(x),
+\mathrm{bridgeH}(\pi,ra,z,x)=h_t(x),
 \qquad
-\operatorname{bridgeH}(\pi,a,z,x)=h_{T_0}(x),
+\mathrm{bridgeH}(\pi,a,z,x)=h_{T_0}(x),
 $$
 $$
-\operatorname{bridgeLaw}(\pi,a,r,z,x,y,u)
+\mathrm{bridgeLaw}(\pi,a,r,z,x,y,u)
 =\frac{r h_{T_0}(x)\mathbf1_{\{u=y\}}+(1-r)\pi(u)h_{T_0}(u)}{h_t(x)}.
 $$
 
-This is the explicit one-coordinate conditional law in Section 5. `bridgeTime t = exp (t-2)` implements $r$ at $T_0=2$. `bridgeMarginals` forms the coordinate laws; `bridgePayoff` and `D.bridgeQ` integrate the test function against their product, corresponding to $q_t^\zeta(x,y)$.
+This is Eq. (5.1), the explicit one-coordinate conditional law derived in Lemma 5.4 for the auxiliary conditioned synchronous process of Lemma 5.1. `bridgeTime t = exp (t-2)` implements $r$ at $T_0=2$. `bridgeMarginals` forms the coordinate laws; `bridgePayoff` and `D.bridgeQ` integrate the test function against their product, corresponding to $q_t^\zeta(x,y)$.
 
 `coordinateAverage` is the finite conditional mean used in the product-variance bound. At zero-mass atoms Lean assigns zero by its convention for division by zero; those atoms contribute no weight. For the bridge's positive marginals at $t<T_0$, it is the usual conditional average.
 
