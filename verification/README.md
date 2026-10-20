@@ -14,4 +14,4 @@ The [20 October 2026 snapshot](2026-10-20/) records checks of the cleaned source
 | `environment/proc_self.c` | Executable-path compatibility shim used in this container. |
 
 Follow the [verification guide](../docs/VERIFICATION.md) to reproduce the checks.
-The records are from a local run.
+The records are from a local run, we have also had GitHub complete the lean build. This can be found in the Actions tab.
