@@ -1,10 +1,13 @@
 import TailBound.Core
 
-/-! Finite generator algebra and uniform bounds for switched rates.
-These identities do not themselves construct the stochastic processes.
+/-!
+# Generators
+
+Finite generator algebra and uniform bounds for switched rates.
 -/
 
 open scoped BigOperators
+
 namespace TailBound
 
 variable {α : Type*} [Fintype α]
@@ -44,8 +47,8 @@ theorem coupled_generator_difference (a b r dxy dx dy : ℝ) :
 
 /-- The square identity used in the quadratic Dynkin formula. -/
 theorem generator_square (q : α → α → ℝ) (f : α → ℝ) (x : α) :
-    generator q (fun y => (f y)^2) x - 2 * f x * generator q f x =
-      ∑ y, q x y * (f y - f x)^2 := by
+    generator q (fun y => (f y) ^ 2) x - 2 * f x * generator q f x =
+      ∑ y, q x y * (f y - f x) ^ 2 := by
   unfold generator
   rw [Finset.mul_sum, ← Finset.sum_sub_distrib]
   apply Finset.sum_congr rfl

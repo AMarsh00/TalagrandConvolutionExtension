@@ -1,11 +1,15 @@
 import TailBound.RefreshTail
 import TailBound.ContinuousPositivity
 
-/-! The manuscript's continuous-time, arbitrary finite-state main theorem.
-Every estimate used below is proved in the imported modules. -/
+/-!
+# Main Theorem
+
+The dimension-free tail bound for finite-state Markov semigroups.
+-/
+
 namespace TailBound
 
-/-- Theorem 1: one common tail constant for every tensor dimension. -/
+/-- Theorem 1.1: one common tail constant for every tensor dimension. -/
 theorem main_theorem : ManuscriptTheorem1 := by
   intro α _ _ S π hirr hstat τ hτ
   exact positive_kernel_tail π (S.kernel τ)

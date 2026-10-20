@@ -1,4 +1,4 @@
-name = "TailBoundAudit"
+name = "TalagrandConvolutionExtension"
 version = "0.1.0"
 defaultTargets = ["TailBound"]
 
@@ -12,5 +12,4 @@ name = "TailBound"
 
 [[require]]
 name = "TalagrandConvConjecture"
-git = "https://github.com/junwei-lu/TalagrandConvolutionConjecture.git"
-rev = "6488afd9f5f94f40766c6915c6e4e4f8de15ada7"
+path = ".lake/packages/TalagrandConvConjecture"

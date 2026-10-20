@@ -15,3 +15,10 @@ import TailBound.FlowIntegration
 import TailBound.InverseDensity
 import TailBound.LayerDiscrepancy
 import TailBound.MainTheorem
+
+/-!
+# Talagrand's convolution bound for finite-state semigroups
+
+Import `TailBound` to access the complete development. The main result is
+`TailBound.main_theorem`; its proposition is `TailBound.ManuscriptTheorem1`.
+-/

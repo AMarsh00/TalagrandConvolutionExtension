@@ -15,10 +15,10 @@ The main entry points are [MainStatement.lean](../TailBound/MainStatement.lean),
 | Explicit parameter dependence | [SharpAlgebra](../TailBound/SharpAlgebra.lean), [SharpLayer](../TailBound/SharpLayer.lean), [SharpAverage](../TailBound/SharpAverage.lean), [SharpBand](../TailBound/SharpBand.lean), [SharpStatement](../TailBound/SharpStatement.lean) | Separate layer estimates and the stated dependence on the heat-ratio parameter. |
 | Tail conclusion | [BandTail](../TailBound/BandTail.lean), [PositiveApproximation](../TailBound/PositiveApproximation.lean), [RefreshTail](../TailBound/RefreshTail.lean), [MainTheorem](../TailBound/MainTheorem.lean) | Geometric-band summation, nonnegative inputs, kernel transfer, and the main result. |
 
-Module imports give the exact dependency graph. All source modules remain in `TailBound/`, and their public declaration names are preserved.
+Module imports give the exact dependency graph. All source modules remain in `TailBound/`. The main theorem and band-estimate entry points keep their names.
 
 ## Verification entry points
 
 - [MainCheck.lean](../checks/MainCheck.lean) checks the main theorem and prints its underlying definitions and axioms.
 - [SharpCheck.lean](../checks/SharpCheck.lean) checks the explicit band estimate and its constants.
-- [AxiomsCheck.lean](../checks/AxiomsCheck.lean) prints axiom dependencies for the 477 audited lemma/theorem declarations.
+- [AxiomsCheck.lean](../checks/AxiomsCheck.lean) prints axiom dependencies for the 473 current lemma/theorem declarations.

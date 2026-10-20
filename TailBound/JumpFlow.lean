@@ -1,16 +1,17 @@
 import TailBound.Profile
 import TalagrandConvConjecture.Flow.Glued
 
-/-! Finite jump processes represented by their master equations. Events may
+/-!
+# Jump Flow
+
+Finite jump processes represented by their master equations. Events may
 leave a state unchanged; their diagonal contributions cancel automatically.
-These generic identities will be used for the manuscript's stopped coupling.
 -/
 
 open scoped BigOperators
 open MeasureTheory intervalIntegral
-namespace TailBound
 
-set_option linter.unusedSectionVars false
+namespace TailBound
 
 variable {S E : Type*} [Fintype S] [DecidableEq S] [Fintype E]
 
@@ -18,7 +19,7 @@ noncomputable def eventForward (next : E → S → S) (rate : E → S → ℝ) (
   ∑ e, ((if next e r = s then rate e r else 0) - if r=s then rate e r else 0)
 
 noncomputable def eventGenerator (next : E → S → S) (rate : E → S → ℝ)
-    (f : S → ℝ) (s : S) : ℝ := ∑ e, rate e s * (f (next e s)-f s)
+    (f : S → ℝ) (s : S) : ℝ := ∑ e, rate e s * (f (next e s) - f s)
 
 lemma eventForward_column (next : E → S → S) (rate : E → S → ℝ) (r : S) :
     ∑ s, eventForward next rate s r = 0 := by
@@ -28,6 +29,7 @@ lemma eventForward_column (next : E → S → S) (rate : E → S → ℝ) (r : S
   intro e _
   simp [Finset.sum_sub_distrib]
 
+omit [Fintype S] in
 lemma eventForward_offdiag (next : E → S → S) (rate : E → S → ℝ)
     (hr : ∀ e s, 0 ≤ rate e s) (s r : S) (hsr : s ≠ r) :
     0 ≤ eventForward next rate s r := by
@@ -55,17 +57,19 @@ lemma eventForward_duality (next : E → S → S) (rate : E → S → ℝ) (μ f
   simp
   ring
 
+omit [Fintype S] [DecidableEq S] in
 lemma eventGenerator_square (next : E → S → S) (rate : E → S → ℝ)
     (f : S → ℝ) (s : S) :
-    eventGenerator next rate (fun r => (f r)^2) s -
-      2*f s*eventGenerator next rate f s =
-      ∑ e, rate e s * (f (next e s)-f s)^2 := by
+    eventGenerator next rate (fun r => (f r) ^ 2) s -
+      2 * f s * eventGenerator next rate f s =
+      ∑ e, rate e s * (f (next e s) - f s) ^ 2 := by
   unfold eventGenerator
   rw [Finset.mul_sum, ← Finset.sum_sub_distrib]
   apply Finset.sum_congr rfl
   intro e _
   ring
 
+omit [Fintype S] in
 lemma eventForward_continuousOn {a b : ℝ} (next : E → S → S)
     (rate : ℝ → E → S → ℝ)
     (hr : ∀ e s, ContinuousOn (fun t => rate t e s) (Set.Icc a b)) (s r : S) :
@@ -87,8 +91,8 @@ theorem exists_eventFlow (a b : ℝ) (hab : a ≤ b) (next : E → S → S)
       (∀ t ∈ Set.Icc a b, ∀ s, 0 ≤ y t s) ∧
       (∀ t ∈ Set.Icc a b, ∑ s, y t s = ∑ s, μ s) := by
   have hA := eventForward_continuousOn next rate hr
-  obtain ⟨y,hy,hy0⟩ := Talagrand.exists_linFlow (fun t => eventForward next (rate t)) hab hA μ
-  refine ⟨y,hy,hy0,?_,?_⟩
+  obtain ⟨y, hy, hy0⟩ := Talagrand.exists_linFlow (fun t => eventForward next (rate t)) hab hA μ
+  refine ⟨y, hy, hy0, ?_, ?_⟩
   · exact Talagrand.linFlow_nonneg hab hA
       (fun t ht s r hsr => eventForward_offdiag next (rate t) (hr0 t ht) s r hsr) hy
       (by simpa only [hy0] using hμ)

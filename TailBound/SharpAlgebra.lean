@@ -1,11 +1,16 @@
 import Mathlib.Tactic
 import Mathlib.NumberTheory.Harmonic.Bounds
 
-/-! Scalar estimates for the sharp fixed-band constant. Adapted from the
+/-!
+# Sharp Algebra
+
+Scalar estimates for the sharp fixed-band constant. Adapted from the
 pinned junwei-lu/TalagrandConvolutionConjecture, FixedBand.lean,
 commit 6488afd9f5f94f40766c6915c6e4e4f8de15ada7. The score coefficient
-is enlarged from 50 to 64 so its square root is the integer 8. -/
+is enlarged from 50 to 64 so its square root is the integer 8.
+-/
 open scoped BigOperators
+
 namespace TailBound.Sharp
 /-- `∑_{j<m} (j+1)^{-1/2} ≤ 2√m`. -/
 lemma sum_inv_sqrt_le (m : ℕ) :
@@ -99,9 +104,9 @@ lemma kappa_sq_Lam_log_le {κ Λ K ℓ : ℝ} (hκ : 1 < κ) (hΛ1 : 1 ≤ Λ)
   -- `1 + log ℓ ≤ 5·ℓ^{1/4}`
   have hq1 : (1 : ℝ) ≤ Real.sqrt (Real.sqrt ℓ) := by
     have : (1 : ℝ) ≤ Real.sqrt ℓ := by
-      rw [show (1:ℝ) = Real.sqrt 1 by simp]
+      rw [show (1 : ℝ) = Real.sqrt 1 by simp]
       exact Real.sqrt_le_sqrt hℓ1
-    rw [show (1:ℝ) = Real.sqrt 1 by simp]
+    rw [show (1 : ℝ) = Real.sqrt 1 by simp]
     exact Real.sqrt_le_sqrt (by simpa using this)
   have hlog : 1 + Real.log ℓ ≤ 5 * Real.sqrt (Real.sqrt ℓ) := by
     have := log_le_four_mul_sqrt_sqrt hℓ0
@@ -294,6 +299,5 @@ lemma sum_layer_coeff_le {κ Λ K : ℝ} (hK0 : 0 ≤ K)
       ≤ 64 * K ^ 2 * 2 :=
     mul_le_mul_of_nonneg_left (sum_inv_sq_le m) (by positivity)
   linarith
-
 
 end TailBound.Sharp

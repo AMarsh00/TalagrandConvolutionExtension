@@ -1,16 +1,17 @@
 import TailBound.Core
 
-/-! Finite-product first-order projection inequality.
+/-!
+# Level One
+
+Finite-product first-order projection inequality.
 The square expansion below is the finite-dimensional Bessel inequality
-used by the manuscript's Parseval argument. No probabilistic independence
-or conditional-expectation facts are postulated: product moments and
-conditional averages are calculated from finite sums.
+for product probability weights. Conditional averages are calculated
+from finite sums.
 -/
 
 open scoped BigOperators
-namespace TailBound
 
-set_option linter.unusedSectionVars false
+namespace TailBound
 
 variable {Ω : Type*} [Fintype Ω]
 
@@ -43,12 +44,14 @@ variable {ι α : Type*} [Fintype ι] [DecidableEq ι] [Fintype α] [DecidableEq
 noncomputable def productWeight (π : ι → α → ℝ) (x : ι → α) : ℝ :=
   ∏ i, π i (x i)
 
+omit [DecidableEq α] in
 lemma productWeight_mass (π : ι → α → ℝ) (hπ : ∀ i, ∑ a, π i a = 1) :
     ∑ x, productWeight π x = 1 := by
   unfold productWeight
   rw [← Fintype.prod_sum]
   simp [hπ]
 
+omit [DecidableEq α] in
 lemma product_moment (π g : ι → α → ℝ) :
     mean (productWeight π) (fun x => ∏ i, g i (x i)) =
       ∏ i, mean (π i) (g i) := by
@@ -56,6 +59,7 @@ lemma product_moment (π g : ι → α → ℝ) :
   simp_rw [← Finset.prod_mul_distrib]
   exact (Fintype.prod_sum (fun i a => π i a * g i a)).symm
 
+omit [DecidableEq α] in
 lemma product_marginal (π : ι → α → ℝ) (hπ : ∀ i, ∑ a, π i a = 1)
     (i : ι) (g : α → ℝ) :
     mean (productWeight π) (fun x => g (x i)) = mean (π i) g := by
@@ -68,6 +72,7 @@ lemma product_marginal (π : ι → α → ℝ) (hπ : ∀ i, ∑ a, π i a = 1)
   simp only [Fintype.prod_ite_eq', hs] at h
   simpa using h
 
+omit [DecidableEq α] in
 lemma product_pair_moment (π : ι → α → ℝ) (hπ : ∀ i, ∑ a, π i a = 1)
     (i j : ι) (hij : i ≠ j) (g h : α → ℝ) :
     mean (productWeight π) (fun x => g (x i) * h (x j)) =
@@ -130,16 +135,17 @@ lemma coordinateAverage_mean (π : ι → α → ℝ)
     mean (π i) (coordinateAverage π f i) = mean (productWeight π) f := by
   simpa using (coordinateAverage_test π f i (fun _ => 1)).symm
 
+omit [DecidableEq ι] in
 /-- A finite-sum form of Bessel's inequality, with all moment hypotheses explicit. -/
 lemma finite_bessel (μ F : Ω → ℝ) (hμ : ∀ x, 0 ≤ μ x)
     (c : ι → Ω → ℝ)
-    (hproj : ∀ i, mean μ (fun x => F x * c i x) = mean μ (fun x => (c i x)^2))
+    (hproj : ∀ i, mean μ (fun x => F x * c i x) = mean μ (fun x => (c i x) ^ 2))
     (horth : ∀ i j, i ≠ j → mean μ (fun x => c i x * c j x) = 0) :
-    (∑ i, mean μ (fun x => (c i x)^2)) ≤ mean μ (fun x => (F x)^2) := by
+    (∑ i, mean μ (fun x => (c i x) ^ 2)) ≤ mean μ (fun x => (F x) ^ 2) := by
   let C : Ω → ℝ := fun x => ∑ i, c i x
-  have hFC : mean μ (fun x => F x * C x) = ∑ i, mean μ (fun x => (c i x)^2) := by
+  have hFC : mean μ (fun x => F x * C x) = ∑ i, mean μ (fun x => (c i x) ^ 2) := by
     simp only [C, Finset.mul_sum, mean_sum, hproj]
-  have hCC : mean μ (fun x => (C x)^2) = ∑ i, mean μ (fun x => (c i x)^2) := by
+  have hCC : mean μ (fun x => (C x) ^ 2) = ∑ i, mean μ (fun x => (c i x) ^ 2) := by
     simp only [C, pow_two, Finset.sum_mul_sum, mean_sum]
     apply Finset.sum_congr rfl
     intro i _
@@ -147,26 +153,26 @@ lemma finite_bessel (μ F : Ω → ℝ) (hμ : ∀ x, 0 ≤ μ x)
     · intro j _ hji
       exact horth i j (Ne.symm hji)
     · simp
-  have hexp : mean μ (fun x => (F x - C x)^2) =
-      mean μ (fun x => (F x)^2) - 2 * mean μ (fun x => F x * C x) +
-        mean μ (fun x => (C x)^2) := by
+  have hexp : mean μ (fun x => (F x - C x) ^ 2) =
+      mean μ (fun x => (F x) ^ 2) - 2 * mean μ (fun x => F x * C x) +
+        mean μ (fun x => (C x) ^ 2) := by
     rw [← mean_smul, ← mean_sub, ← mean_add]
     congr 1
     funext x
     ring
-  have hn : 0 ≤ mean μ (fun x => (F x - C x)^2) :=
+  have hn : 0 ≤ mean μ (fun x => (F x - C x) ^ 2) :=
     Finset.sum_nonneg fun x _ => mul_nonneg (hμ x) (sq_nonneg _)
   rw [hFC, hCC] at hexp
   linarith
 
 /-- The first-order projection inequality for any real-valued function and
-finite product probability law. There is no assumed Parseval identity. -/
+finite product probability law. -/
 theorem level_one_product (π : ι → α → ℝ)
     (hπnonneg : ∀ i a, 0 ≤ π i a) (hπmass : ∀ i, ∑ a, π i a = 1)
     (f : (ι → α) → ℝ) :
     let m := mean (productWeight π) f
-    (∑ i, mean (π i) (fun a => (coordinateAverage π f i a - m)^2)) ≤
-      mean (productWeight π) (fun x => (f x)^2) - m^2 := by
+    (∑ i, mean (π i) (fun a => (coordinateAverage π f i a - m) ^ 2)) ≤
+      mean (productWeight π) (fun x => (f x) ^ 2) - m ^ 2 := by
   let μ := productWeight π
   let m := mean μ f
   let c : ι → α → ℝ := fun i a => coordinateAverage π f i a - m
@@ -179,12 +185,12 @@ theorem level_one_product (π : ι → α → ℝ)
     rw [product_marginal π hπmass, hcm]
   have hproj (i : ι) :
       mean μ (fun x => (f x - m) * c i (x i)) =
-        mean μ (fun x => (c i (x i))^2) := by
+        mean μ (fun x => (c i (x i)) ^ 2) := by
     have htest := coordinateAverage_test π f i (c i)
     have hs : mean (π i) (fun a => coordinateAverage π f i a * c i a) =
-        mean (π i) (fun a => (c i a)^2) := by
+        mean (π i) (fun a => (c i a) ^ 2) := by
       have he : (fun a => coordinateAverage π f i a * c i a) =
-          fun a => (c i a)^2 + m * c i a := by
+          fun a => (c i a) ^ 2 + m * c i a := by
         funext a
         dsimp [c]
         ring
@@ -195,28 +201,28 @@ theorem level_one_product (π : ι → α → ℝ)
       ring
     rw [he, mean_sub, mean_smul, hcx, mul_zero, sub_zero]
     rw [htest, hs]
-    exact (product_marginal π hπmass i (fun a => (c i a)^2)).symm
+    exact (product_marginal π hπmass i (fun a => (c i a) ^ 2)).symm
   have horth (i j : ι) (hij : i ≠ j) :
       mean μ (fun x => c i (x i) * c j (x j)) = 0 := by
     rw [product_pair_moment π hπmass i j hij, hcm, zero_mul]
   have hb := finite_bessel μ (fun x => f x - m)
     (fun x => Finset.prod_nonneg fun i _ => hπnonneg i (x i))
     (fun i x => c i (x i)) hproj horth
-  have hvar : mean μ (fun x => (f x - m)^2) =
-      mean μ (fun x => (f x)^2) - m^2 := by
-    have he : (fun x => (f x - m)^2) =
-        fun x => (f x)^2 - (2 * m) * f x + m^2 := by
+  have hvar : mean μ (fun x => (f x - m) ^ 2) =
+      mean μ (fun x => (f x) ^ 2) - m ^ 2 := by
+    have he : (fun x => (f x - m) ^ 2) =
+        fun x => (f x) ^ 2 - (2 * m) * f x + m ^ 2 := by
       funext x
       ring
     rw [he, mean_add, mean_sub, mean_smul, mean_const μ hμmass]
-    change mean μ (fun x => (f x)^2) - 2 * m * m + m^2 = _
+    change mean μ (fun x => (f x) ^ 2) - 2 * m * m + m ^ 2 = _
     ring
   rw [hvar] at hb
-  have hs : (∑ i, mean μ (fun x => (c i (x i))^2)) =
-      ∑ i, mean (π i) (fun a => (c i a)^2) := by
+  have hs : (∑ i, mean μ (fun x => (c i (x i)) ^ 2)) =
+      ∑ i, mean (π i) (fun a => (c i a) ^ 2) := by
     apply Finset.sum_congr rfl
     intro i _
-    exact product_marginal π hπmass i (fun a => (c i a)^2)
+    exact product_marginal π hπmass i (fun a => (c i a) ^ 2)
   rw [hs] at hb
   exact hb
 
@@ -225,9 +231,9 @@ theorem level_one_product_le_quarter (π : ι → α → ℝ)
     (hπnonneg : ∀ i a, 0 ≤ π i a) (hπmass : ∀ i, ∑ a, π i a = 1)
     (f : (ι → α) → ℝ) (hf : ∀ x, 0 ≤ f x ∧ f x ≤ 1) :
     let m := mean (productWeight π) f
-    (∑ i, mean (π i) (fun a => (coordinateAverage π f i a - m)^2)) ≤
-      mean (productWeight π) (fun x => (f x)^2) - m^2 ∧
-    mean (productWeight π) (fun x => (f x)^2) - m^2 ≤ (1 / 4 : ℝ) := by
+    (∑ i, mean (π i) (fun a => (coordinateAverage π f i a - m) ^ 2)) ≤
+      mean (productWeight π) (fun x => (f x) ^ 2) - m ^ 2 ∧
+    mean (productWeight π) (fun x => (f x) ^ 2) - m ^ 2 ≤ (1 / 4 : ℝ) := by
   refine ⟨level_one_product π hπnonneg hπmass f, ?_⟩
   exact variance_le_quarter (productWeight π) f
     (fun x => Finset.prod_nonneg fun i _ => hπnonneg i (x i)) hf

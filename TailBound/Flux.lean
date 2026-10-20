@@ -1,8 +1,13 @@
 import TailBound.Core
 
-/-! Threshold-flux symmetrization and nonnegativity. -/
+/-!
+# Flux
+
+Threshold-flux symmetrization and nonnegativity.
+-/
 
 open scoped BigOperators
+
 namespace TailBound
 
 noncomputable def threshold (u x : ℝ) : ℝ := if u < x then 1 else 0

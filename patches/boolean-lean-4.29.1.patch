@@ -1,0 +1,360 @@
+--- a/TalagrandConvConjecture/Analysis/Cutoff.lean
++++ b/TalagrandConvConjecture/Analysis/Cutoff.lean
+@@ -1,4 +1,5 @@
+-import Mathlib
++import Mathlib.Analysis.SpecialFunctions.Integrals.Basic
++import Mathlib.Data.Real.StarOrdered
+ 
+ /-!
+ # A C¹ cutoff function and the coarea Cauchy–Schwarz bound
+@@ -364,7 +365,7 @@
+   rcases eq_or_lt_of_le hm with rfl | hm0
+   · have hX0 : X ≤ 0 := by
+       by_contra hc
+-      push_neg at hc
++      push Not at hc
+       have ht : (0 : ℝ) < (D + 1) / X := by positivity
+       have htne : (D + 1) / X ≠ 0 := ne_of_gt ht
+       have hkey := h _ ht
+@@ -378,7 +379,7 @@
+   · rcases eq_or_lt_of_le hD with rfl | hD0
+     · have hX0 : X ≤ 0 := by
+         by_contra hc
+-        push_neg at hc
++        push Not at hc
+         have ht : (0 : ℝ) < X / (2 * m) := by positivity
+         have hkey := h _ ht
+         rw [zero_div, add_zero] at hkey
+@@ -421,7 +422,7 @@
+         * |Real.exp b - Real.exp a| :=
+       mul_nonneg (mul_nonneg (by norm_num) hmnn) hDnn
+     simpa using this
+-  push_neg at hdeg
++  push Not at hdeg
+   obtain ⟨hb1, ha2⟩ := hdeg
+   obtain ⟨p, hp⟩ : ∃ p : ℝ, p = max a (ℓ - 1) := ⟨_, rfl⟩
+   obtain ⟨q, hq⟩ : ∃ q : ℝ, q = min b (ℓ + 2) := ⟨_, rfl⟩
+--- a/TalagrandConvConjecture/Analysis/PiecewiseFTC.lean
++++ b/TalagrandConvConjecture/Analysis/PiecewiseFTC.lean
+@@ -1,4 +1,4 @@
+-import Mathlib
++import Mathlib.Analysis.SpecialFunctions.Integrability.Basic
+ 
+ /-!
+ # Calculus across finitely many exceptional times; root finiteness
+@@ -82,7 +82,7 @@
+       have h3 : (∫ t in a..z, v t) + (∫ t in z..b, v t) = ∫ t in a..b, v t :=
+         intervalIntegral.integral_add_adjacent_intervals (hv.mono_set hsub1) (hv.mono_set hsub2)
+       linarith
+-    · push_neg at hex
++    · push Not at hex
+       exact sub_eq_integral_clean hab hu (fun t ht => hd t ht (fun htZ => hex t htZ ht)) hv
+ 
+ private lemma sub_le_integral_aux (n : ℕ) : ∀ (Z : Finset ℝ) (u w : ℝ → ℝ) (a b : ℝ),
+@@ -123,7 +123,7 @@
+       have h3 : (∫ t in a..z, w t) + (∫ t in z..b, w t) = ∫ t in a..b, w t :=
+         intervalIntegral.integral_add_adjacent_intervals (hw.mono_set hsub1) (hw.mono_set hsub2)
+       linarith
+-    · push_neg at hex
++    · push Not at hex
+       exact sub_le_integral_clean hab hu (fun t ht => hd t ht (fun htZ => hex t htZ ht)) hw
+ 
+ /-- **FTC-2 with finitely many exceptional points**: `u` continuous on
+--- a/TalagrandConvConjecture/Cube/Basic.lean
++++ b/TalagrandConvConjecture/Cube/Basic.lean
+@@ -1,4 +1,6 @@
+-import Mathlib
++import Mathlib.Analysis.RCLike.Basic
++import Mathlib.Data.Fintype.Units
++import Mathlib.Tactic.Positivity
+ 
+ /-!
+ # The Boolean hypercube: state space, uniform expectation, coordinate flips
+@@ -33,22 +35,22 @@
+ @[simp] lemma toR_neg (u : ℤˣ) : toR (-u) = -toR u := by simp [toR]
+ 
+ @[simp] lemma toR_mul_self (u : ℤˣ) : toR u * toR u = 1 := by
+-  rcases toR_eq_one_or u with h | h <;> rw [h] <;> norm_num
++  rcases toR_eq_one_or u with h | h <;> norm_num [h]
+ 
+ @[simp] lemma toR_sq (u : ℤˣ) : toR u ^ 2 = 1 := by
+   rw [sq]; exact toR_mul_self u
+ 
+ @[simp] lemma abs_toR (u : ℤˣ) : |toR u| = 1 := by
+-  rcases toR_eq_one_or u with h | h <;> rw [h] <;> norm_num
++  rcases toR_eq_one_or u with h | h <;> norm_num [h]
+ 
+ lemma neg_one_le_toR (u : ℤˣ) : -1 ≤ toR u := by
+-  rcases toR_eq_one_or u with h | h <;> rw [h] <;> norm_num
++  rcases toR_eq_one_or u with h | h <;> norm_num [h]
+ 
+ lemma toR_le_one (u : ℤˣ) : toR u ≤ 1 := by
+-  rcases toR_eq_one_or u with h | h <;> rw [h] <;> norm_num
++  rcases toR_eq_one_or u with h | h <;> norm_num [h]
+ 
+ lemma toR_ne_zero (u : ℤˣ) : toR u ≠ 0 := by
+-  rcases toR_eq_one_or u with h | h <;> rw [h] <;> norm_num
++  rcases toR_eq_one_or u with h | h <;> norm_num [h]
+ 
+ /-- `1 + ρ·u` is nonnegative when `|ρ| ≤ 1`; these are (twice) the biased-coin
+ weights. -/
+--- a/TalagrandConvConjecture/Cube/Entropy.lean
++++ b/TalagrandConvConjecture/Cube/Entropy.lean
+@@ -1,3 +1,5 @@
++import Mathlib.Algebra.BigOperators.Field
++import Mathlib.Analysis.SpecialFunctions.Log.Basic
+ import TalagrandConvConjecture.Cube.Basic
+ 
+ /-!
+@@ -71,7 +73,7 @@
+ /-- **Variational lower bound for entropy**: if `w` are probability weights,
+ `g ≥ 0`, and `∑ w e^φ ≤ 1`, then `∑ w·g·φ ≤ Ent_w(g)`. [C, proof of Lemma 4,
+ step (entropy_vs_anti_concentration_profile).] -/
+-theorem sum_mul_le_ent (w g φ : ι → ℝ) (hw : ∀ i, 0 ≤ w i) (hw1 : ∑ i, w i = 1)
++theorem sum_mul_le_ent (w g φ : ι → ℝ) (hw : ∀ i, 0 ≤ w i) (_hw1 : ∑ i, w i = 1)
+     (hg : ∀ i, 0 ≤ g i) (hφ : ∑ i, w i * Real.exp (φ i) ≤ 1) :
+     ∑ i, w i * (g i * φ i) ≤ ent w g := by
+   obtain ⟨M, hM⟩ : ∃ M : ℝ, M = ∑ i, w i * g i := ⟨_, rfl⟩
+@@ -130,7 +132,7 @@
+ `Ent_w(∑_k p k • h k) ≤ ∑_k p k · Ent_w(h k)`. (From the sup representation:
+ `Ent_w` is a supremum of linear functionals.) -/
+ theorem ent_average_le {κ : Type*} [Fintype κ] (p : κ → ℝ) (w : ι → ℝ)
+-    (h : κ → ι → ℝ) (hp : ∀ k, 0 ≤ p k) (hp1 : ∑ k, p k = 1)
++    (h : κ → ι → ℝ) (hp : ∀ k, 0 ≤ p k) (_hp1 : ∑ k, p k = 1)
+     (hw : ∀ i, 0 ≤ w i) (hw1 : ∑ i, w i = 1) (hh : ∀ k i, 0 ≤ h k i) :
+     ent w (fun i => ∑ k, p k * h k i) ≤ ∑ k, p k * ent w (h k) := by
+   set G : ι → ℝ := fun i => ∑ k, p k * h k i with hGdef
+--- a/TalagrandConvConjecture/Cube/Heat.lean
++++ b/TalagrandConvConjecture/Cube/Heat.lean
+@@ -1,3 +1,4 @@
++import Mathlib.Analysis.SpecialFunctions.ExpDeriv
+ import TalagrandConvConjecture.Cube.Multilinear
+ 
+ /-!
+--- a/TalagrandConvConjecture/Cube/Multilinear.lean
++++ b/TalagrandConvConjecture/Cube/Multilinear.lean
+@@ -1,3 +1,5 @@
++import Mathlib.Analysis.Calculus.Deriv.Add
++import Mathlib.Analysis.Calculus.Deriv.Mul
+ import TalagrandConvConjecture.Cube.Basic
+ 
+ /-!
+@@ -259,7 +261,7 @@
+ inequality): if `f ≥ 0` and `g ≤ c·h` pointwise with `h, g ≥ 0` then sums obey
+ the same bound. Used to derive the edge-ratio bound [C Lemma 5]. -/
+ lemma sum_div_le_of_ratio_le {ι : Type*} [Fintype ι] {g h : ι → ℝ} {c : ℝ}
+-    (hh : ∀ i, 0 ≤ h i) (hb : ∀ i, g i ≤ c * h i) :
++    (_hh : ∀ i, 0 ≤ h i) (hb : ∀ i, g i ≤ c * h i) :
+     ∑ i, g i ≤ c * ∑ i, h i := by
+   calc ∑ i, g i ≤ ∑ i, c * h i := Finset.sum_le_sum fun i _ => hb i
+     _ = c * ∑ i, h i := by rw [Finset.mul_sum]
+--- a/TalagrandConvConjecture/Flow/Glued.lean
++++ b/TalagrandConvConjecture/Flow/Glued.lean
+@@ -32,11 +32,12 @@
+     {s s' : S} (h : s ≠ s') : 0 ≤ fwdOf q s s' := by
+   simp [fwdOf, h, hq]
+ 
+-lemma fwdOf_col_sum (q : S → S → ℝ) (hq : ∀ s, q s s = 0) (s' : S) :
++lemma fwdOf_col_sum (q : S → S → ℝ) (_hq : ∀ s, q s s = 0) (s' : S) :
+     ∑ s, fwdOf q s s' = 0 := by
+   simp only [fwdOf, Finset.sum_sub_distrib, Finset.sum_ite_eq', Finset.mem_univ, if_true,
+     sub_self]
+ 
++omit [DecidableEq S] in
+ /-- Total mass is preserved by a matrix whose columns sum to one. -/
+ lemma sum_matVec_of_col_sum_one {T : S → S → ℝ} (hT : ∀ s', ∑ s, T s s' = 1)
+     (v : S → ℝ) : ∑ s, matVec T v s = ∑ s, v s := by
+@@ -54,6 +55,7 @@
+   init : y 0 (z 0) = matVec (Tr 0) y₀
+   node : ∀ k, k + 1 < K → y (k + 1) (z (k + 1)) = matVec (Tr (k + 1)) (y k (z (k + 1)))
+ 
++omit [DecidableEq S] in
+ /-- Existence of glued flows (cells solved by `exists_linFlow`, glued by
+ recursion). -/
+ theorem exists_gluedFlow (K : ℕ) (z : ℕ → ℝ) (A : ℕ → ℝ → S → S → ℝ)
+@@ -79,6 +81,7 @@
+   | zero => exact hF1 0 _ hk
+   | succ n => exact hF1 (n + 1) _ hk
+ 
++omit [DecidableEq S] in
+ /-- Positivity of a glued flow: Metzler cells + nonnegative transfers +
+ nonnegative initial data. -/
+ theorem gluedFlow_nonneg {K : ℕ} {z : ℕ → ℝ} {A : ℕ → ℝ → S → S → ℝ}
+@@ -106,6 +109,7 @@
+     refine Finset.sum_nonneg fun s' _ => mul_nonneg (hTr (n + 1) s s') ?_
+     exact ih hnK (z (n + 1)) (Set.right_mem_Icc.2 (hy.mono n hnK)) s'
+ 
++omit [DecidableEq S] in
+ /-- Mass conservation for a glued flow whose cells conserve mass
+ (column sums `0`) and whose transfers are stochastic on the support
+ (`∑_s Tr k s s' = 1`). -/
+--- a/TalagrandConvConjecture/ODE/LinearFlow.lean
++++ b/TalagrandConvConjecture/ODE/LinearFlow.lean
+@@ -1,4 +1,6 @@
+-import Mathlib
++import Mathlib.Analysis.ODE.Gronwall
++import Mathlib.Analysis.ODE.PicardLindelof
++import Mathlib.Data.Real.StarOrdered
+ 
+ /-!
+ # Finite-dimensional linear ODE flows
+@@ -22,7 +24,7 @@
+ 
+ open scoped NNReal
+ 
+-variable {S : Type*} [Fintype S] [DecidableEq S]
++variable {S : Type*} [Fintype S]
+ 
+ /-- Action of the time-dependent matrix. -/
+ def matVec (A : S → S → ℝ) (y : S → ℝ) : S → ℝ := fun s => ∑ s', A s s' * y s'
+@@ -273,7 +275,7 @@
+     intro a b hab hlen hA hM y₀
+     by_cases hle : b - a ≤ δ
+     · exact exists_linFlow_small hab hA hM0 hM (by nlinarith) y₀
+-    · push_neg at hle
++    · push Not at hle
+       have hac : a ≤ a + δ := by linarith
+       have hcb : a + δ ≤ b := by linarith
+       have hA1 : ∀ s s', ContinuousOn (fun t => A t s s') (Set.Icc a (a + δ)) :=
+@@ -309,7 +311,7 @@
+   exact exists_linFlow_aux A hM0 hδ hMδ n a b hab ((div_le_iff₀ hδ).1 hn) hA hM y₀
+ 
+ /-- **Uniqueness**: two flows with the same initial value agree on `[a,b]`. -/
+-theorem linFlow_unique {A : ℝ → S → S → ℝ} {a b : ℝ} (hab : a ≤ b)
++theorem linFlow_unique {A : ℝ → S → S → ℝ} {a b : ℝ} (_hab : a ≤ b)
+     (hA : ∀ s s', ContinuousOn (fun t => A t s s') (Set.Icc a b))
+     {y z : ℝ → S → ℝ} (hy : IsLinFlow A a b y) (hz : IsLinFlow A a b z)
+     (h0 : y a = z a) : ∀ t ∈ Set.Icc a b, y t = z t := by
+@@ -352,7 +354,7 @@
+       intro s
+       exact (hdc s).add (Continuous.continuousOn (by fun_prop))
+     by_contra hcon
+-    push_neg at hcon
++    push Not at hcon
+     obtain ⟨t₁, ht₁, s₁, hs₁⟩ := hcon
+     set Z : Set ℝ := ⋃ s : S, Set.Icc a b ∩ (fun t => W t s) ⁻¹' Set.Iic 0 with hZ
+     have hZcl : IsClosed Z :=
+@@ -383,7 +385,7 @@
+     have hlow : ∀ t ∈ Set.Ico a c, ∀ s, 0 < W t s := by
+       intro t ht s
+       by_contra hneg
+-      push_neg at hneg
++      push Not at hneg
+       have htab : t ∈ Set.Icc a b := ⟨ht.1, le_trans ht.2.le hcab.2⟩
+       have : c ≤ t := csInf_le hZbdd (Set.mem_iUnion.2 ⟨s, htab, hneg⟩)
+       linarith [ht.2]
+@@ -444,7 +446,7 @@
+   -- Step 2: let `ε ↓ 0`.
+   intro t ht s
+   by_contra hneg
+-  push_neg at hneg
++  push Not at hneg
+   have hE : (0 : ℝ) < Real.exp (C * t) := Real.exp_pos _
+   have := key (-(d t s) / Real.exp (C * t)) (div_pos (neg_pos.2 hneg) hE) t ht s
+   rw [div_mul_cancel₀ _ (ne_of_gt hE)] at this
+@@ -452,7 +454,7 @@
+ 
+ /-- **Positivity** (Metzler): if all off-diagonal entries of `A t` are `≥ 0`
+ on `[a,b]` and `y a ≥ 0`, then `y t ≥ 0` on `[a,b]`. -/
+-theorem linFlow_nonneg {A : ℝ → S → S → ℝ} {a b : ℝ} (hab : a ≤ b)
++theorem linFlow_nonneg {A : ℝ → S → S → ℝ} {a b : ℝ} (_hab : a ≤ b)
+     (hA : ∀ s s', ContinuousOn (fun t => A t s s') (Set.Icc a b))
+     (hMetzler : ∀ t ∈ Set.Icc a b, ∀ s s', s ≠ s' → 0 ≤ A t s s')
+     {y : ℝ → S → ℝ} (hy : IsLinFlow A a b y) (h0 : ∀ s, 0 ≤ y a s) :
+@@ -462,7 +464,7 @@
+ 
+ /-- **Mass conservation**: if all column sums of `A t` vanish
+ (`∑_s A t s s' = 0`), the total mass `∑_s y t s` is constant. -/
+-theorem linFlow_mass_eq {A : ℝ → S → S → ℝ} {a b : ℝ} (hab : a ≤ b)
++theorem linFlow_mass_eq {A : ℝ → S → S → ℝ} {a b : ℝ} (_hab : a ≤ b)
+     (hcol : ∀ t ∈ Set.Icc a b, ∀ s', ∑ s, A t s s' = 0)
+     {y : ℝ → S → ℝ} (hy : IsLinFlow A a b y) :
+     ∀ t ∈ Set.Icc a b, ∑ s, y t s = ∑ s, y a s := by
+@@ -483,7 +485,7 @@
+ 
+ /-- **Mass sub-conservation**: if column sums are `≤ 0` and `y ≥ 0` along the
+ flow, the total mass is nonincreasing. -/
+-theorem linFlow_mass_le {A : ℝ → S → S → ℝ} {a b : ℝ} (hab : a ≤ b)
++theorem linFlow_mass_le {A : ℝ → S → S → ℝ} {a b : ℝ} (_hab : a ≤ b)
+     (hcol : ∀ t ∈ Set.Icc a b, ∀ s', ∑ s, A t s s' ≤ 0)
+     {y : ℝ → S → ℝ} (hy : IsLinFlow A a b y)
+     (hpos : ∀ t ∈ Set.Icc a b, ∀ s, 0 ≤ y t s) :
+@@ -520,7 +522,7 @@
+ extra nonnegative source against a nonnegative flow (`z' = A z + r`,
+ `r ≥ 0` pointwise), and `z a ≥ y a ≥ 0`, then `z ≥ y` on `[a,b]`.
+ (Used to compare weighted flows against tilted lower-bound flows.) -/
+-theorem linFlow_le_of_source {A : ℝ → S → S → ℝ} {a b : ℝ} (hab : a ≤ b)
++theorem linFlow_le_of_source {A : ℝ → S → S → ℝ} {a b : ℝ} (_hab : a ≤ b)
+     (hA : ∀ s s', ContinuousOn (fun t => A t s s') (Set.Icc a b))
+     (hMetzler : ∀ t ∈ Set.Icc a b, ∀ s s', s ≠ s' → 0 ≤ A t s s')
+     {y z : ℝ → S → ℝ} (hy : IsLinFlow A a b y)
+@@ -528,7 +530,7 @@
+     (hz : ∀ s, ∀ t ∈ Set.Icc a b, ∃ r ≥ 0,
+       HasDerivWithinAt (fun t => z t s) (matVec (A t) (z t) s + r)
+         (Set.Icc a b) t)
+-    (h0 : ∀ s, y a s ≤ z a s) (hy0 : ∀ s, 0 ≤ y a s) :
++    (h0 : ∀ s, y a s ≤ z a s) (_hy0 : ∀ s, 0 ≤ y a s) :
+     ∀ t ∈ Set.Icc a b, ∀ s, y t s ≤ z t s := by
+   have hmain : ∀ t ∈ Set.Icc a b, ∀ s, 0 ≤ z t s - y t s := by
+     refine nonneg_of_flow_ineq hA hMetzler (d := fun t s => z t s - y t s)
+@@ -539,7 +541,7 @@
+     have hdiff := hrd.sub (hy.deriv s t ht)
+     have hcalc : matVec (A t) (z t) s + r - matVec (A t) (y t) s
+         = matVec (A t) (fun s => z t s - y t s) s + r := by
+-      simp only [matVec, ← Finset.sum_sub_distrib]
++      simp only [matVec]
+       rw [← sub_add_eq_add_sub]
+       congr 1
+       rw [← Finset.sum_sub_distrib]
+--- a/TalagrandConvConjecture/PowerCoupling.lean
++++ b/TalagrandConvConjecture/PowerCoupling.lean
+@@ -1,3 +1,5 @@
++import Mathlib.Analysis.MeanInequalities
++import Mathlib.Analysis.SpecialFunctions.Log.Deriv
+ import TalagrandConvConjecture.Reverse.Setup
+ 
+ /-!
+@@ -184,7 +186,7 @@
+   simp only [Ka, Lam, mul_pow, Real.sq_sqrt hnn]
+   field_simp
+ 
+-lemma powerRatio_nonneg (hd0 : 0 ≤ d) (hd1 : d ≤ 1) (hY : 0 < Y) :
++lemma powerRatio_nonneg (hd0 : 0 ≤ d) (_hd1 : d ≤ 1) (hY : 0 < Y) :
+     0 ≤ powerRatio d Y := by
+   unfold powerRatio
+   split_ifs with h1 h2
+@@ -260,7 +262,7 @@
+ 
+ /-- **Size of the power perturbation** [LGF Lemma 5.2]: on `[κ⁻¹, κ]`,
+ `powerRatio d Y ≤ (κ·log κ/(κ-1))·d`. -/
+-theorem powerRatio_le (hκ : 1 < κ) (hd0 : 0 ≤ d) (hd1 : d ≤ 1)
++theorem powerRatio_le (hκ : 1 < κ) (hd0 : 0 ≤ d) (_hd1 : d ≤ 1)
+     (hY1 : κ⁻¹ ≤ Y) (hY2 : Y ≤ κ) :
+     powerRatio d Y ≤ κ * Real.log κ / (κ - 1) * d := by
+   have hκ0 : (0 : ℝ) < κ := by linarith
+@@ -285,7 +287,7 @@
+ `(1 - Y^d)/2 = powerRatio d Y·(1-Y)/2`; for `Y > 1`,
+ `(Y - Y^{1-d})/2 = -powerRatio d Y·(1-Y)/2` [LGF §4, interpretation of the
+ coupling rates; proof of Lemma 5.1]. -/
+-lemma one_sub_rpow_eq (hY0 : 0 < Y) (hY : Y < 1) :
++lemma one_sub_rpow_eq (_hY0 : 0 < Y) (hY : Y < 1) :
+     (1 - Y ^ d) / 2 = powerRatio d Y * ((1 - Y) / 2) := by
+   have h : (1 : ℝ) - Y ≠ 0 := ne_of_gt (by linarith : (0 : ℝ) < 1 - Y)
+   unfold powerRatio
+@@ -339,7 +341,7 @@
+ `Y ≥ 1` in `[κ⁻¹,κ]` and `λ > 0`,
+ `λ·(1 - Y^{-d})/(Y-1) ≤ λ·d` — packaged as the statement actually used:
+ `(λ·powerRatio d Y/Y) ≤ λ·d` for `Y > 1`. -/
+-lemma lam_mul_powerRatio_div_le (hY : 1 < Y) (hd0 : 0 ≤ d) (hd1 : d ≤ 1)
++lemma lam_mul_powerRatio_div_le (hY : 1 < Y) (hd0 : 0 ≤ d) (_hd1 : d ≤ 1)
+     {lam : ℝ} (hlam : 0 ≤ lam) :
+     lam * powerRatio d Y / Y ≤ lam * d := by
+   have hY0 : (0 : ℝ) < Y := by linarith
+--- a/TalagrandConvConjecture/Statement.lean
++++ b/TalagrandConvConjecture/Statement.lean
+@@ -1,3 +1,5 @@
++import Mathlib.Analysis.SpecialFunctions.Log.Basic
++import Mathlib.Analysis.SpecialFunctions.Sqrt
+ import TalagrandConvConjecture.Cube.Heat
+ 
+ /-!

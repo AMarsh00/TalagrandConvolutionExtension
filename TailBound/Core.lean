@@ -18,9 +18,6 @@ open scoped BigOperators
 
 namespace TailBound
 
-set_option linter.unusedSectionVars false
-set_option linter.unusedVariables false
-
 variable {α : Type*} [Fintype α] [DecidableEq α]
 
 noncomputable def mean (π f : α → ℝ) : ℝ := ∑ x, π x * f x
@@ -37,11 +34,13 @@ def Stochastic (K : α → α → ℝ) : Prop :=
 noncomputable def comp (K R : α → α → ℝ) (x y : α) : ℝ :=
   ∑ z, K x z * R z y
 
+omit [DecidableEq α] in
 lemma act_nonneg {K : α → α → ℝ} {f : α → ℝ}
     (hK : ∀ x y, 0 ≤ K x y) (hf : ∀ x, 0 ≤ f x) (x : α) :
     0 ≤ act K f x :=
   Finset.sum_nonneg fun y _ => mul_nonneg (hK x y) (hf y)
 
+omit [DecidableEq α] in
 lemma mean_act (π : α → ℝ) (K : α → α → ℝ)
     (hstat : Stationary π K) (f : α → ℝ) :
     mean π (act K f) = mean π f := by
@@ -51,6 +50,7 @@ lemma mean_act (π : α → ℝ) (K : α → α → ℝ)
   rw [Finset.sum_comm]
   simp only [← mul_assoc, ← Finset.sum_mul, hstat]
 
+omit [DecidableEq α] in
 lemma act_comp (K R : α → α → ℝ) (f : α → ℝ) :
     act (comp K R) f = act K (act R f) := by
   funext x
@@ -67,6 +67,7 @@ noncomputable def residual (π : α → ℝ) (K : α → α → ℝ)
 noncomputable def refresh (π : α → ℝ) (ε : ℝ) (x y : α) : ℝ :=
   (1 - ε) * (if x = y then 1 else 0) + ε * π y
 
+omit [DecidableEq α] in
 lemma residual_stochastic (π : α → ℝ) (K : α → α → ℝ)
     (ε : ℝ) (hπ : ∑ y, π y = 1) (hK : ∀ x, ∑ y, K x y = 1)
     (hε : ε < 1) (hminor : ∀ x y, ε * π y ≤ K x y) :
@@ -79,6 +80,7 @@ lemma residual_stochastic (π : α → ℝ) (K : α → α → ℝ)
       ← Finset.mul_sum, hK, hπ, mul_one]
     exact div_self (by linarith)
 
+omit [DecidableEq α] in
 lemma residual_stationary (π : α → ℝ) (K : α → α → ℝ)
     (ε : ℝ) (hπ : ∑ x, π x = 1) (hstat : Stationary π K) (hε : ε < 1) :
     Stationary π (residual π K ε) := by
@@ -110,6 +112,7 @@ lemma kernel_factorization (π : α → ℝ) (K : α → α → ℝ)
       field_simp [show 1 - ε ≠ 0 by linarith]
       ring
 
+omit [Fintype α] in
 lemma refresh_detailed_balance (π : α → ℝ) (ε : ℝ) (x y : α) :
     π x * refresh π ε x y = π y * refresh π ε y x := by
   by_cases h : x = y
@@ -124,16 +127,19 @@ noncomputable def tensorWeight (π : α → ℝ) (n : ℕ) (x : Fin n → α) : 
 noncomputable def tensorKernel (K : α → α → ℝ) (n : ℕ)
     (x y : Fin n → α) : ℝ := ∏ i, K (x i) (y i)
 
+omit [Fintype α] [DecidableEq α] in
 lemma tensor_nonneg {K : α → α → ℝ} (hK : ∀ x y, 0 ≤ K x y)
     (n : ℕ) (x y : Fin n → α) : 0 ≤ tensorKernel K n x y :=
   Finset.prod_nonneg fun i _ => hK (x i) (y i)
 
+omit [DecidableEq α] in
 lemma tensor_mass (π : α → ℝ) (hπ : ∑ x, π x = 1) (n : ℕ) :
     ∑ x, tensorWeight π n x = 1 := by
   unfold tensorWeight
   rw [← Fintype.prod_sum]
   simp [hπ]
 
+omit [DecidableEq α] in
 lemma tensor_stationary (π : α → ℝ) (K : α → α → ℝ)
     (hstat : Stationary π K) (n : ℕ) :
     Stationary (tensorWeight π n) (tensorKernel K n) := by
@@ -144,6 +150,7 @@ lemma tensor_stationary (π : α → ℝ) (K : α → α → ℝ)
   change ∀ y, ∑ x, π x * K x y = π y at hstat
   simp only [hstat]
 
+omit [DecidableEq α] in
 lemma tensor_comp (K R : α → α → ℝ) (n : ℕ) :
     tensorKernel (comp K R) n = comp (tensorKernel K n) (tensorKernel R n) := by
   funext x y
@@ -164,6 +171,7 @@ def TailEstimate (π : α → ℝ) (K : α → α → ℝ) (C : ℝ) : Prop :=
 def DimensionFreeTail (π : α → ℝ) (K : α → α → ℝ) : Prop :=
   ∃ C : ℝ, 0 < C ∧ ∀ n : ℕ, TailEstimate (tensorWeight π n) (tensorKernel K n) C
 
+omit [DecidableEq α] in
 lemma tail_transfer (π : α → ℝ) (Q R : α → α → ℝ) (C : ℝ)
     (hR : ∀ x y, 0 ≤ R x y) (hstat : Stationary π R)
     (hQ : TailEstimate π Q C) : TailEstimate π (comp Q R) C := by
@@ -194,10 +202,11 @@ theorem refresh_to_kernel (π : α → ℝ) (K : α → α → ℝ) (ε : ℝ)
 
 /-! ## Dirichlet-form symmetrization -/
 
+omit [DecidableEq α] in
 theorem dirichlet_symmetrization (c : α → α → ℝ) (f : α → ℝ)
     (hsym : ∀ x y, c x y = c y x) :
     -(∑ x, ∑ y, c x y * f x * (f y - f x)) =
-      (1 / 2 : ℝ) * ∑ x, ∑ y, c x y * (f y - f x)^2 := by
+      (1 / 2 : ℝ) * ∑ x, ∑ y, c x y * (f y - f x) ^ 2 := by
   have hs : (∑ x, ∑ y, c x y * f y * (f x - f y)) =
       ∑ x, ∑ y, c x y * f x * (f y - f x) := by
     rw [Finset.sum_comm]
@@ -206,7 +215,7 @@ theorem dirichlet_symmetrization (c : α → α → ℝ) (f : α → ℝ)
     apply Finset.sum_congr rfl
     intro y _
     rw [hsym y x]
-  have he : (∑ x, ∑ y, c x y * (f y - f x)^2) =
+  have he : (∑ x, ∑ y, c x y * (f y - f x) ^ 2) =
       -(∑ x, ∑ y, c x y * f x * (f y - f x)) -
        (∑ x, ∑ y, c x y * f y * (f x - f y)) := by
     simp_rw [← Finset.sum_neg_distrib, ← Finset.sum_sub_distrib]
@@ -218,6 +227,7 @@ theorem dirichlet_symmetrization (c : α → α → ℝ) (f : α → ℝ)
   rw [hs] at he
   linarith
 
+omit [DecidableEq α] in
 theorem dirichlet_nonneg (c : α → α → ℝ) (f : α → ℝ)
     (hsym : ∀ x y, c x y = c y x) (hc : ∀ x y, 0 ≤ c x y) :
     0 ≤ -(∑ x, ∑ y, c x y * f x * (f y - f x)) := by
@@ -232,25 +242,30 @@ variable {ι : Type*} [DecidableEq ι]
 
 def dx (F : (ι → α) → (ι → α) → ℝ) (i : ι) (g : α) (x y : ι → α) :=
   F (Function.update x i g) y - F x y
+
 def dy (F : (ι → α) → (ι → α) → ℝ) (i : ι) (g : α) (x y : ι → α) :=
   F x (Function.update y i g) - F x y
+
 def dxy (F : (ι → α) → (ι → α) → ℝ) (i : ι) (g : α) (x y : ι → α) :=
   F (Function.update x i g) (Function.update y i g) - F x y
 
-lemma correct_vertical_identity (F : (ι → α) → (ι → α) → ℝ)
+omit [Fintype α] [DecidableEq α] in
+lemma vertical_identity (F : (ι → α) → (ι → α) → ℝ)
     (i : ι) (g : α) (x y : ι → α) :
     dy F i g x y = dxy F i g x y - dx F i g x (Function.update y i g) := by
   unfold dy dxy dx
   ring
 
-lemma correct_shifted_vertical_identity (F : (ι → α) → (ι → α) → ℝ)
+omit [Fintype α] [DecidableEq α] in
+lemma shifted_vertical_identity (F : (ι → α) → (ι → α) → ℝ)
     (i : ι) (g : α) (x y : ι → α) :
     dy F i g (Function.update x i g) y = dxy F i g x y - dx F i g x y := by
   unfold dy dxy dx
   ring
 
+omit [Fintype α] [DecidableEq α] in
 lemma reciprocal_update_ratio (p : (ι → α) → ℝ) (x : ι → α) (i : ι) (g : α)
-    (hx : p x ≠ 0) (hy : p (Function.update x i g) ≠ 0) :
+    (_hx : p x ≠ 0) (_hy : p (Function.update x i g) ≠ 0) :
     (p (Function.update x i g) / p x)⁻¹ =
       p (Function.update (Function.update x i g) i (x i)) / p (Function.update x i g) := by
   have hrestore : Function.update (Function.update x i g) i (x i) = x := by
@@ -267,6 +282,7 @@ noncomputable def bridgeLaw (π : α → ℝ) (a r : ℝ) (z x y u : α) : ℝ :
   (r * bridgeH π a z x * (if u = y then 1 else 0) +
     (1 - r) * π u * bridgeH π a z u) / bridgeH π (r * a) z x
 
+omit [Fintype α] in
 lemma bridgeH_interpolation (π : α → ℝ) (a r : ℝ) (z x : α) :
     bridgeH π (r * a) z x = r * bridgeH π a z x + (1 - r) * π z := by
   unfold bridgeH
@@ -291,6 +307,7 @@ theorem bridgeLaw_mass (π : α → ℝ) (hπ : ∑ u, π u = 1)
   simp_rw [mul_assoc (1 - r), ← Finset.mul_sum]
   rw [bridgeH_mean π hπ, ← bridgeH_interpolation, div_self hd]
 
+omit [Fintype α] in
 lemma bridgeLaw_nonneg (π : α → ℝ) (hπ : ∀ u, 0 ≤ π u)
     (a r : ℝ) (ha : 0 ≤ a ∧ a ≤ 1) (hr : 0 ≤ r ∧ r ≤ 1)
     (z x y u : α) : 0 ≤ bridgeLaw π a r z x y u := by
@@ -315,10 +332,10 @@ lemma bridgeLaw_nonneg (π : α → ℝ) (hπ : ∀ u, 0 ≤ π u)
 
 theorem stopped_score_rescaling (κ Λ R S : ℝ) (hκ : 1 < κ) (hR : 0 ≤ R)
     (hΛ : Λ = κ * Real.log κ / (κ - 1))
-    (hS : S ≤ (2 * 5^2 * (κ - 1) / Real.log κ) *
-      ((R + 1 + Real.log κ) / (R + 1)^2)) :
-    S ≤ (2 * 5^2 * κ / Λ) / (R + 1) +
-      (2 * 5^2 * (κ - 1)) / (R + 1)^2 := by
+    (hS : S ≤ (2 * 5 ^ 2 * (κ - 1) / Real.log κ) *
+      ((R + 1 + Real.log κ) / (R + 1) ^ 2)) :
+    S ≤ (2 * 5 ^ 2 * κ / Λ) / (R + 1) +
+      (2 * 5 ^ 2 * (κ - 1)) / (R + 1) ^ 2 := by
   have hk : κ ≠ 0 := by linarith
   have hkm : κ - 1 ≠ 0 := by linarith
   have hl : Real.log κ ≠ 0 := ne_of_gt (Real.log_pos hκ)
@@ -338,7 +355,7 @@ theorem absorb_recurrence (M a q : ℝ) (hq : q < 1)
   nlinarith
 
 theorem band_exponent_before_stop (ell R alpha delta w v : ℝ) (j : ℝ)
-    (hd0 : 0 ≤ delta) (hd1 : delta ≤ 1)
+    (_hd0 : 0 ≤ delta) (hd1 : delta ≤ 1)
     (hdelta : delta * (R + 1) = alpha)
     (hw : ell + j < w) (hv : v ≤ ell + 1) :
     alpha + j - 1 < w - (1 - delta) * v - delta * (ell - R) := by
@@ -352,10 +369,11 @@ theorem band_exponent_after_stop (ell R alpha delta w v z : ℝ) (j : ℝ)
 
 /-! ## Variance bound for a function with values in [0,1] -/
 
+omit [DecidableEq α] in
 theorem variance_le_quarter (π f : α → ℝ) (hπ : ∀ x, 0 ≤ π x)
     (hf : ∀ x, 0 ≤ f x ∧ f x ≤ 1) :
-    mean π (fun x => (f x)^2) - (mean π f)^2 ≤ (1 / 4 : ℝ) := by
-  have h : mean π (fun x => (f x)^2) ≤ mean π f := by
+    mean π (fun x => (f x) ^ 2) - (mean π f) ^ 2 ≤ (1 / 4 : ℝ) := by
+  have h : mean π (fun x => (f x) ^ 2) ≤ mean π f := by
     apply Finset.sum_le_sum
     intro x _
     apply mul_le_mul_of_nonneg_left _ (hπ x)
@@ -373,47 +391,5 @@ theorem switched_drift_nonpos (r δ : ℝ) (hr : 0 ≤ r)
     (show (1 - δ) + δ = 1 by ring)
   simp only [Real.one_rpow, one_mul, mul_one] at h
   linarith
-
-/-! ## Examples distinguishing signs, coordinate updates, and LSI constants
-These four examples record the need for the conventions used above.
--/
-
-theorem wrong_dirichlet_sign_counterexample :
-    let c : Fin 2 → Fin 2 → ℝ := fun _ _ => 1 / 4;
-    let f : Fin 2 → ℝ := fun i => if i = 0 then 0 else 1;
-    -(∑ x, ∑ y, c x y * f x * (f y - f x)) ≠
-      -(1 / 2 : ℝ) * ∑ x, ∑ y, c x y * (f y - f x)^2 := by
-  norm_num [Fin.sum_univ_two]
-
-theorem wrong_reciprocal_counterexample :
-    let p : (Fin 1 → Fin 2) → ℝ := fun x => if x 0 = 0 then 1 else 2;
-    let x : Fin 1 → Fin 2 := fun _ => 0;
-    let y := Function.update x 0 1;
-    (p y / p x)⁻¹ ≠ p (Function.update y 0 1) / p y := by
-  norm_num
-
-theorem wrong_increment_counterexample :
-    let F : (Fin 1 → Fin 2) → (Fin 1 → Fin 2) → ℝ :=
-      fun x _ => if x 0 = 0 then 0 else 1;
-    let x : Fin 1 → Fin 2 := fun _ => 0;
-    dxy F 0 1 x x + dx F 0 1 (Function.update x 0 1) x ≠ dy F 0 1 x x := by
-  norm_num [dxy, dx, dy]
-
-/-- For π=(1/3,2/3) and f=(1,0), Ent(f²)=log(3)/3 and
-E(f,f)=2/9. The coefficient 1/(3 log 2) is too small for the
-log-Sobolev inequality with this Dirichlet-form convention. -/
-theorem inverted_log_sobolev_counterexample :
-    ((1 / 3 : ℝ) / Real.log 2) * (2 / 9) < (1 / 3 : ℝ) * Real.log 3 := by
-  have h2 : (1 / 2 : ℝ) ≤ Real.log 2 := by
-    have h := Real.one_sub_inv_le_log_of_pos (by norm_num : (0 : ℝ) < 2)
-    norm_num at h
-    linarith
-  have h3 : (2 / 3 : ℝ) ≤ Real.log 3 := by
-    convert Real.one_sub_inv_le_log_of_pos (by norm_num : (0 : ℝ) < 3) using 1
-    norm_num
-  have hpos : 0 < Real.log 2 := by linarith
-  rw [div_mul_eq_mul_div]
-  apply (div_lt_iff₀ hpos).mpr
-  nlinarith [mul_nonneg (sub_nonneg.mpr h2) (sub_nonneg.mpr h3)]
 
 end TailBound

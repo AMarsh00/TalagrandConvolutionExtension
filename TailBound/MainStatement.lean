@@ -1,14 +1,14 @@
 import TailBound.Core
 
 /-!
-Exact main-theorem target.
+# Statement of the dimension-free tail theorem
 
-`ManuscriptTheorem1` is the exact target proposition. Its inhabitant is
-`TailBound.main_theorem` in `TailBound/MainTheorem.lean`. This file keeps the
-statement separate from the proof to avoid import cycles.
+Finite Markov semigroups and the target proposition `ManuscriptTheorem1`.
+The proof is `TailBound.main_theorem` in `MainTheorem.lean`.
 -/
 
 open scoped BigOperators
+
 namespace TailBound
 
 universe u
@@ -17,7 +17,7 @@ universe u
 structure FiniteMarkovSemigroup (α : Type u) [Fintype α] [DecidableEq α] where
   kernel : ℝ → α → α → ℝ
   zero : ∀ x y, kernel 0 x y = if x = y then 1 else 0
-  add : ∀ s t, 0 ≤ s → 0 ≤ t → kernel (s+t) = comp (kernel s) (kernel t)
+  add : ∀ s t, 0 ≤ s → 0 ≤ t → kernel (s + t) = comp (kernel s) (kernel t)
   stochastic : ∀ t, 0 ≤ t → Stochastic (kernel t)
   continuous : ∀ x y, ContinuousOn (fun t => kernel t x y) (Set.Ici 0)
 
@@ -30,7 +30,7 @@ def FiniteMarkovSemigroup.HasStationaryDistribution {α : Type u}
   (∀ x, 0 ≤ π x) ∧ (∑ x, π x = 1) ∧
     ∀ t, 0 ≤ t → Stationary π (S.kernel t)
 
-/-- The manuscript's main assertion, explicitly including one common constant
+/-- The dimension-free tail bound with one common constant
 for all dimensions. The n=0 case included by `DimensionFreeTail` is harmless.
 The proof is `TailBound.main_theorem` in `MainTheorem.lean`. -/
 def ManuscriptTheorem1 : Prop :=

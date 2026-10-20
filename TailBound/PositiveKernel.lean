@@ -1,17 +1,20 @@
 import TailBound.Core
 
-/-! The deterministic reduction, with the minorization constant constructed.
+/-!
+# Positive Kernel
+
+The deterministic reduction, with the minorization constant constructed.
 This module states the reduction with an explicit refresh hypothesis.
 `RefreshTail.lean` proves that hypothesis and the unconditional positive-kernel result.
 -/
 
 open scoped BigOperators
-namespace TailBound
 
-set_option linter.unusedSectionVars false
+namespace TailBound
 
 variable {α : Type*} [Fintype α] [DecidableEq α]
 
+omit [DecidableEq α] in
 lemma positive_kernel_minorization (π : α → ℝ) (K : α → α → ℝ)
     (hπ : ∀ x, 0 < π x) (hmass : ∑ x, π x = 1)
     (hK : ∀ x y, 0 < K x y) :
@@ -22,16 +25,16 @@ lemma positive_kernel_minorization (π : α → ℝ) (K : α → α → ℝ)
   obtain ⟨x₀, _⟩ := Finset.nonempty_iff_ne_empty.mpr hne
   obtain ⟨p, _, hmin⟩ := Finset.exists_min_image
     (Finset.univ : Finset (α × α)) (fun p => K p.1 p.2 / π p.2)
-    ⟨(x₀,x₀), Finset.mem_univ _⟩
+    ⟨(x₀, x₀), Finset.mem_univ _⟩
   let d := K p.1 p.2 / π p.2
   have hd : 0 < d := div_pos (hK p.1 p.2) (hπ p.2)
-  refine ⟨min (1/2) (d/2), lt_min (by norm_num) (by positivity),
+  refine ⟨min (1 / 2) (d / 2), lt_min (by norm_num) (by positivity),
     (min_le_left _ _).trans_lt (by norm_num), ?_⟩
   intro x y
   apply (le_div_iff₀ (hπ y)).mp
-  calc min (1/2) (d/2) ≤ d/2 := min_le_right _ _
+  calc min (1 / 2) (d / 2) ≤ d / 2 := min_le_right _ _
     _ ≤ d := by linarith
-    _ ≤ K x y / π y := hmin (x,y) (Finset.mem_univ _)
+    _ ≤ K x y / π y := hmin (x, y) (Finset.mem_univ _)
 
 /-- All strictly positive stationary kernels reduce to refresh. No condition
 is placed on the dimension, and no embeddability of the residual is needed.

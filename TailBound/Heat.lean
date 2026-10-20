@@ -2,22 +2,25 @@ import TailBound.Entropy
 import TailBound.HeatRatio
 import TalagrandConvConjecture.Analysis.PiecewiseFTC
 
-/-! The weighted product refresh semigroup, its heat equation, and its
-finite level crossings. All kernels are finite sums over the actual alphabet. -/
+/-!
+# Heat
+
+The weighted product refresh semigroup, its heat equation, and its
+finite level crossings. All kernels are finite sums over the actual alphabet.
+-/
 
 open scoped BigOperators
-namespace TailBound
 
-set_option linter.unusedSectionVars false
-set_option linter.unusedSimpArgs false
+namespace TailBound
 
 variable {α : Type*} [Fintype α] [DecidableEq α]
 
 noncomputable def heatKernel (π : α → ℝ) (a : ℝ) (x y : α) : ℝ :=
   π y + a * ((if x = y then 1 else 0) - π y)
 
+omit [Fintype α] in
 lemma heatKernel_eq_refresh (π : α → ℝ) (a : ℝ) :
-    heatKernel π a = refresh π (1-a) := by
+    heatKernel π a = refresh π (1 - a) := by
   funext x y
   unfold heatKernel refresh
   ring
@@ -38,14 +41,14 @@ lemma heatKernel_stationary (π : α → ℝ) (hπ1 : ∑ a, π a = 1) (a : ℝ)
   ring
 
 lemma heatKernel_comp (π : α → ℝ) (hπ1 : ∑ a, π a = 1) (a b : ℝ) :
-    comp (heatKernel π a) (heatKernel π b) = heatKernel π (a*b) := by
+    comp (heatKernel π a) (heatKernel π b) = heatKernel π (a * b) := by
   funext x y
   have hstat := heatKernel_stationary π hπ1 b y
   have he : comp (heatKernel π a) (heatKernel π b) x y =
-      (1-a) * π y + a * heatKernel π b x y := by
+      (1 - a) * π y + a * heatKernel π b x y := by
     unfold comp
     calc
-      _ = ∑ z, ((1-a)*π z + a*(if x=z then 1 else 0)) * heatKernel π b z y := by
+      _ = ∑ z, ((1 - a) * π z + a * (if x=z then 1 else 0)) * heatKernel π b z y := by
         apply Finset.sum_congr rfl; intro z _; unfold heatKernel; ring
       _ = _ := by
         simp only [add_mul, Finset.sum_add_distrib, mul_assoc, ← Finset.mul_sum]
@@ -69,16 +72,16 @@ lemma mean_heat (π : α → ℝ) (hπ1 : ∑ a, π a = 1) {n : ℕ}
   mean_act _ _ (tensor_stationary π _ (heatKernel_stationary π hπ1 _) n) f
 
 lemma heat_add (π : α → ℝ) (hπ1 : ∑ a, π a = 1) {n : ℕ}
-    (f : (Fin n → α) → ℝ) (s t : ℝ) : heat π f (s+t) = heat π (heat π f t) s := by
+    (f : (Fin n → α) → ℝ) (s t : ℝ) : heat π f (s + t) = heat π (heat π f t) s := by
   unfold heat
   rw [neg_add, Real.exp_add, ← heatKernel_comp π hπ1,
     tensor_comp, act_comp]
 
 lemma heat_zero (π : α → ℝ) {n : ℕ} (f : (Fin n → α) → ℝ) : heat π f 0 = f := by
   funext x
-  have hk : heatKernel π (Real.exp (-(0:ℝ))) = fun x y : α => if x=y then 1 else 0 := by
+  have hk : heatKernel π (Real.exp (-(0 : ℝ))) = fun x y : α => if x=y then 1 else 0 := by
     funext x y; simp [heatKernel]
-  have hp (y : Fin n → α) : (∏ i : Fin n, (if x i=y i then (1:ℝ) else 0)) =
+  have hp (y : Fin n → α) : (∏ i : Fin n, (if x i=y i then (1 : ℝ) else 0)) =
       if x=y then 1 else 0 := by
     by_cases h : x=y
     · simp [h]
@@ -119,7 +122,7 @@ lemma heat_pos (π : α → ℝ) (hπ0 : ∀ a, 0 ≤ π a) (hπ1 : ∑ a, π a 
     simp [heatKernel_mass π hπ1]
   have hex : ∃ y, 0 < tensorKernel (heatKernel π (Real.exp (-s))) n x y := by
     by_contra hn
-    push_neg at hn
+    push Not at hn
     have hz : (∑ y, tensorKernel (heatKernel π (Real.exp (-s))) n x y) = 0 :=
       Finset.sum_eq_zero fun y _ => le_antisymm (hn y) (tensor_nonneg hK n x y)
     linarith
@@ -140,6 +143,7 @@ lemma generator_kernel (π : α → ℝ) (hπ1 : ∑ a, π a = 1) {n : ℕ}
   rw [heatKernel_stationary π hπ1 a (y i), tensorKernel_row _ n x y i]
   ring
 
+omit [DecidableEq α] in
 lemma generator_act (π : α → ℝ) {n : ℕ} (K : (Fin n → α) → (Fin n → α) → ℝ)
     (f : (Fin n → α) → ℝ) (x : Fin n → α) :
     refreshGenerator π (act K f) x = ∑ y, refreshGenerator π (fun z => K z y) x * f y := by
@@ -165,8 +169,9 @@ lemma hasDerivAt_heat (π : α → ℝ) (hπ1 : ∑ a, π a = 1) {n : ℕ}
     simpa using (Real.hasDerivAt_exp (-s)).comp s (hasDerivAt_neg' s)
   have hk (u v : α) : HasDerivAt (fun t => heatKernel π (Real.exp (-t)) u v)
       (π v - heatKernel π (Real.exp (-s)) u v) s := by
-    convert (hexp.mul_const ((if u=v then 1 else 0)-π v)).const_add (π v) using 1 <;>
-      dsimp [heatKernel] <;> ring
+    convert (hexp.mul_const ((if u=v then 1 else 0) - π v)).const_add (π v) using 1
+    dsimp [heatKernel]
+    ring
   have hp (y : Fin n → α) := HasDerivAt.fun_finset_prod
     (u := (Finset.univ : Finset (Fin n))) (fun i _ => hk (x i) (y i))
   have hh := HasDerivAt.fun_sum (u := (Finset.univ : Finset (Fin n → α)))

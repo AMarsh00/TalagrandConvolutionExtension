@@ -1,6 +1,6 @@
 import TailBound
 
--- No refresh or analytic conclusions are assumed by these theorem statements.
+-- The fixed-band estimate, its constants, and the main theorem.
 #check TailBound.lemma2_sharp
 #check TailBound.lemma2_sharp_of_bounds
 #check TailBound.RefreshData.fixed_band_sharp_explicit

@@ -1,14 +1,18 @@
 import TailBound.Core
 
-/-! Markov bounds for small tail thresholds. -/
+/-!
+# Small Threshold
+
+Markov bounds for small tail thresholds.
+-/
 
 open scoped BigOperators
-namespace TailBound
 
-set_option linter.unusedSectionVars false
+namespace TailBound
 
 variable {α : Type*} [Fintype α] [DecidableEq α]
 
+omit [DecidableEq α] in
 theorem finite_markov_bound (π p : α → ℝ) (hπ : ∀ x, 0 ≤ π x)
     (hp : ∀ x, 0 ≤ p x) (η : ℝ) (hη : 0 < η) :
     eventMass π (fun x => η < p x) ≤ mean π p / η := by
@@ -24,6 +28,7 @@ theorem finite_markov_bound (π p : α → ℝ) (hπ : ∀ x, 0 ≤ π x)
   · simp only [hx, if_false, zero_mul]
     exact mul_nonneg (hπ x) (hp x)
 
+omit [DecidableEq α] in
 /-- For `1 < η ≤ exp 2`, ordinary Markov supplies the required estimate.
 The fixed-band estimate is only needed for `log η > 2`. -/
 theorem small_threshold_tail (π p : α → ℝ) (hπ : ∀ x, 0 ≤ π x)

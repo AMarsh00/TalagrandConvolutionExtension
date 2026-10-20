@@ -1,14 +1,16 @@
 import TailBound.TimeGrid
 
-/-! Construction of the manuscript's stopped power coupling as a finite
+/-!
+# Coupling
+
+Construction of the stopped power coupling as a finite
 master equation. The starting point is retained as an unchanged state coordinate,
 so localization by an event at time θ is represented exactly by its indicator.
 -/
 
 open scoped BigOperators
-namespace TailBound
 
-set_option linter.unusedSectionVars false
+namespace TailBound
 
 inductive JumpKind | sync | left | right
   deriving DecidableEq, Fintype
@@ -29,7 +31,7 @@ lemma continuous_switchedPower (d : ℝ) (hd0 : 0 ≤ d) (hd1 : d ≤ 1) :
   exact Continuous.if_le
     ((continuous_id.add continuous_const).sub
       (continuous_id.rpow_const (fun _ => Or.inr hd0)))
-    (continuous_id.rpow_const (fun _ => Or.inr (by linarith : 0 ≤ 1-d)))
+    (continuous_id.rpow_const (fun _ => Or.inr (by linarith : 0 ≤ 1 - d)))
     continuous_id continuous_const (fun r hr => by simp [hr])
 
 noncomputable def couplingNext (B : Set (Fin n → α)) (e : CouplingEvent α n)
@@ -41,7 +43,7 @@ noncomputable def couplingNext (B : Set (Fin n → α)) (e : CouplingEvent α n)
   let w := match e.1 with
     | .sync | .right => Function.update s.w e.2.1 e.2.2
     | .left => s.w
-  exact ⟨s.start,v,w,s.alive && decide (v ∉ B)⟩
+  exact ⟨s.start, v, w, s.alive && decide (v ∉ B)⟩
 
 noncomputable def killNode (B : Set (Fin n → α)) (s : CoupledState α n) : CoupledState α n := by
   classical
@@ -67,6 +69,7 @@ lemma mapTransfer_pairing {S : Type*} [Fintype S] [DecidableEq S]
   simp [mapTransfer]
 
 namespace RefreshData
+
 variable (D : RefreshData α n)
 
 noncomputable def coupledExponent (ℓ θ : ℝ) (s : CoupledState α n) : ℝ :=
@@ -78,17 +81,19 @@ noncomputable def couplingRate (ℓ θ t : ℝ) (e : CouplingEvent α n)
   let b := switchedPower (D.coupledExponent ℓ θ s) a
   D.π e.2.2 * match e.1 with
     | .sync => min a b
-    | .left => max (a-b) 0
-    | .right => max (b-a) 0
+    | .left => max (a - b) 0
+    | .right => max (b - a) 0
 
+omit [Nonempty α] in
 lemma coupledExponent_bounds (ℓ θ : ℝ) (s : CoupledState α n) :
     0 ≤ D.coupledExponent ℓ θ s ∧ D.coupledExponent ℓ θ s ≤ 1 := by
   unfold coupledExponent
   split_ifs
   · have hh := D.exponent_bounds ℓ θ s.start
-    constructor <;> linarith [hh.1,hh.2]
+    constructor <;> linarith [hh.1, hh.2]
   · norm_num
 
+omit [Nonempty α] in
 lemma couplingRate_nonneg (ℓ θ t : ℝ) (ht : t ≤ D.horizon)
     (e : CouplingEvent α n) (s : CoupledState α n) : 0 ≤ D.couplingRate ℓ θ t e s := by
   have ha := D.ratio_pos ht e.2.1 e.2.2 s.v
@@ -101,6 +106,7 @@ lemma couplingRate_nonneg (ℓ θ t : ℝ) (ht : t ≤ D.horizon)
   · exact le_max_right _ _
   · exact le_max_right _ _
 
+omit [Nonempty α] in
 lemma couplingRate_continuousOn (ℓ θ : ℝ) (e : CouplingEvent α n) (s : CoupledState α n) :
     ContinuousOn (fun t => D.couplingRate ℓ θ t e s) (Set.Iic D.horizon) := by
   have ha := D.continuousOn_ratio e.2.1 e.2.2 s.v
@@ -114,8 +120,9 @@ lemma couplingRate_continuousOn (ℓ θ : ℝ) (e : CouplingEvent α n) (s : Cou
   · exact (hb.sub ha).sup continuousOn_const
 
 noncomputable def initialCoupling (θ : ℝ) (s : CoupledState α n) : ℝ :=
-  ∑ x, D.density θ x * (if s = ⟨x,x,x,true⟩ then 1 else 0)
+  ∑ x, D.density θ x * (if s = ⟨x, x, x, true⟩ then 1 else 0)
 
+omit [Nonempty α] in
 lemma initialCoupling_nonneg (θ : ℝ) (hθ : θ ≤ D.horizon) (s : CoupledState α n) :
     0 ≤ D.initialCoupling θ s := by
   apply Finset.sum_nonneg
@@ -123,13 +130,15 @@ lemma initialCoupling_nonneg (θ : ℝ) (hθ : θ ≤ D.horizon) (s : CoupledSta
   apply mul_nonneg (D.density_nonneg hθ x)
   split_ifs <;> norm_num
 
+omit [Nonempty α] in
 lemma initialCoupling_mass (θ : ℝ) : ∑ s, D.initialCoupling θ s = 1 := by
   unfold initialCoupling
   rw [Finset.sum_comm]
   simpa using D.density_mass θ
 
+omit [Nonempty α] in
 lemma initialCoupling_pairing (θ : ℝ) (F : CoupledState α n → ℝ) :
-    ∑ s, D.initialCoupling θ s * F s = ∑ x, D.density θ x * F ⟨x,x,x,true⟩ := by
+    ∑ s, D.initialCoupling θ s * F s = ∑ x, D.density θ x * F ⟨x, x, x, true⟩ := by
   unfold initialCoupling
   simp_rw [Finset.sum_mul]
   rw [Finset.sum_comm]
@@ -144,33 +153,38 @@ noncomputable def couplingMatrix {ℓ θ : ℝ} (G : TimeGrid θ 2 (D.crossingSe
 noncomputable def couplingTransfer (ℓ t : ℝ) : CoupledState α n → CoupledState α n → ℝ :=
   mapTransfer (killNode (D.barrier ℓ t))
 
+omit [Nonempty α] in
 lemma couplingMatrix_continuous {ℓ θ : ℝ} (G : TimeGrid θ 2 (D.crossingSet ℓ))
     {k : ℕ} (hk : k < G.K) (s r : CoupledState α n) :
-    ContinuousOn (fun t => D.couplingMatrix G k t s r) (Set.Icc (G.z k) (G.z (k+1))) :=
+    ContinuousOn (fun t => D.couplingMatrix G k t s r) (Set.Icc (G.z k) (G.z (k + 1))) :=
   eventForward_continuousOn _ _ (fun e s => (D.couplingRate_continuousOn ℓ θ e s).mono
-    (fun t ht => ((G.cell_subset hk ht).2).trans D.obs_le_horizon)) s r
+    (fun _t ht => ((G.cell_subset hk ht).2).trans D.obs_le_horizon)) s r
 
 /-- A master-equation realization of the stopped coupling. The existence
-theorem below supplies this structure; no stochastic estimate is assumed. -/
+
+theorem `exists_stoppedCoupling` constructs this structure. -/
 structure StoppedCoupling (ℓ θ : ℝ) where
   grid : TimeGrid θ 2 (D.crossingSet ℓ)
   law : ℕ → ℝ → CoupledState α n → ℝ
   flow : Talagrand.IsGluedFlow grid.K grid.z (D.couplingMatrix grid)
     (fun k => D.couplingTransfer ℓ (grid.z k)) (D.initialCoupling θ) law
 
+omit [Nonempty α] in
 theorem exists_stoppedCoupling (ℓ θ : ℝ) (hℓ : 0 < ℓ) (hθ : θ ≤ 2) :
     Nonempty (D.StoppedCoupling ℓ θ) := by
   obtain ⟨G⟩ := D.exists_stopping_grid ℓ θ hℓ hθ
-  obtain ⟨y,hy⟩ := Talagrand.exists_gluedFlow G.K G.z (D.couplingMatrix G)
+  obtain ⟨y, hy⟩ := Talagrand.exists_gluedFlow G.K G.z (D.couplingMatrix G)
     (fun k => D.couplingTransfer ℓ (G.z k)) (D.initialCoupling θ) G.mono
     (fun k hk s r => D.couplingMatrix_continuous G hk s r)
-  exact ⟨⟨G,y,hy⟩⟩
+  exact ⟨⟨G, y, hy⟩⟩
 
 namespace StoppedCoupling
+
 variable {D} {ℓ θ : ℝ} (C : D.StoppedCoupling ℓ θ)
 
+omit [Nonempty α] in
 lemma nonneg (hθ : θ ≤ 2) {k : ℕ} (hk : k < C.grid.K) (t : ℝ)
-    (ht : t ∈ Set.Icc (C.grid.z k) (C.grid.z (k+1))) (s : CoupledState α n) :
+    (ht : t ∈ Set.Icc (C.grid.z k) (C.grid.z (k + 1))) (s : CoupledState α n) :
     0 ≤ C.law k t s := by
   apply Talagrand.gluedFlow_nonneg C.flow
     (fun k hk s r => D.couplingMatrix_continuous C.grid hk s r)
@@ -179,26 +193,29 @@ lemma nonneg (hθ : θ ≤ 2) {k : ℕ} (hk : k < C.grid.K) (t : ℝ)
     (fun k s r => mapTransfer_nonneg _ s r)
     (D.initialCoupling_nonneg θ (hθ.trans D.obs_le_horizon)) k hk t ht s
 
+omit [Nonempty α] in
 lemma mass {k : ℕ} (hk : k < C.grid.K) (t : ℝ)
-    (ht : t ∈ Set.Icc (C.grid.z k) (C.grid.z (k+1))) : ∑ s, C.law k t s = 1 := by
+    (ht : t ∈ Set.Icc (C.grid.z k) (C.grid.z (k + 1))) : ∑ s, C.law k t s = 1 := by
   have hh := Talagrand.gluedFlow_mass C.flow
     (fun k hk t ht r => eventForward_column _ _ r)
     (fun k r => mapTransfer_column _ r) k hk t ht
   rwa [D.initialCoupling_mass θ] at hh
 
-noncomputable def terminal (s : CoupledState α n) : ℝ := C.law (C.grid.K-1) 2 s
+noncomputable def terminal (s : CoupledState α n) : ℝ := C.law (C.grid.K - 1) 2 s
 
+omit [Nonempty α] in
 lemma terminal_nonneg (hθ : θ ≤ 2) (s : CoupledState α n) : 0 ≤ C.terminal s := by
-  apply C.nonneg hθ (show C.grid.K-1<C.grid.K by have := C.grid.pos; omega)
-  have he : C.grid.K-1+1=C.grid.K := by have := C.grid.pos; omega
+  apply C.nonneg hθ (show C.grid.K - 1<C.grid.K by have := C.grid.pos; omega)
+  have he : C.grid.K - 1 + 1=C.grid.K := by have := C.grid.pos; omega
   rw [he, C.grid.last]
-  exact ⟨(C.grid.range (by omega)).2,le_rfl⟩
+  exact ⟨(C.grid.range (by omega)).2, le_rfl⟩
 
+omit [Nonempty α] in
 lemma terminal_mass : ∑ s, C.terminal s = 1 := by
-  apply C.mass (show C.grid.K-1<C.grid.K by have := C.grid.pos; omega)
-  have he : C.grid.K-1+1=C.grid.K := by have := C.grid.pos; omega
+  apply C.mass (show C.grid.K - 1<C.grid.K by have := C.grid.pos; omega)
+  have he : C.grid.K - 1 + 1=C.grid.K := by have := C.grid.pos; omega
   rw [he, C.grid.last]
-  exact ⟨(C.grid.range (by omega)).2,le_rfl⟩
+  exact ⟨(C.grid.range (by omega)).2, le_rfl⟩
 
 end StoppedCoupling
 end RefreshData

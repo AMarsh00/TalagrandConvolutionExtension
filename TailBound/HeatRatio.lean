@@ -1,17 +1,20 @@
 import TailBound.Core
 
-/-! Uniform heat-ratio bounds under coordinate replacement.
+/-!
+# Heat Ratio
+
+Uniform heat-ratio bounds under coordinate replacement.
 `a` is the retention probability exp(-(T-t)); `A` is exp(-τ).
 Thus the relevant hypothesis is `a ≤ A`, or `T-t ≥ τ`.
 -/
 
 open scoped BigOperators
-namespace TailBound
 
-set_option linter.unusedSectionVars false
+namespace TailBound
 
 variable {α : Type*} [Fintype α] [DecidableEq α]
 
+omit [DecidableEq α] in
 lemma act_pos_of_pos_kernel (K : α → α → ℝ) (f : α → ℝ)
     (hK : ∀ x y, 0 < K x y) (hf : ∀ y, 0 ≤ f y)
     (hfpos : ∃ y, 0 < f y) (x : α) : 0 < act K f x := by
@@ -21,6 +24,7 @@ lemma act_pos_of_pos_kernel (K : α → α → ℝ) (f : α → ℝ)
     exact mul_nonneg (hK x z).le (hf z)
   · exact ⟨y, Finset.mem_univ y, mul_pos (hK x y) hy⟩
 
+omit [Fintype α] [DecidableEq α] in
 lemma tensorKernel_update (K : α → α → ℝ) (n : ℕ)
     (x y : Fin n → α) (i : Fin n) (g : α) :
     tensorKernel K n (Function.update x i g) y =
@@ -33,12 +37,14 @@ lemma tensorKernel_update (K : α → α → ℝ) (n : ℕ)
   intro j hj
   rw [Function.update_of_ne (Finset.ne_of_mem_erase hj)]
 
+omit [Fintype α] [DecidableEq α] in
 lemma tensorKernel_row (K : α → α → ℝ) (n : ℕ)
     (x y : Fin n → α) (i : Fin n) :
     tensorKernel K n x y =
       K (x i) (y i) * ∏ j ∈ Finset.univ.erase i, K (x j) (y j) := by
   exact (Finset.mul_prod_erase _ _ (Finset.mem_univ i)).symm
 
+omit [Fintype α] [DecidableEq α] in
 lemma tensorKernel_update_le (K : α → α → ℝ) (κ : ℝ)
     (hK : ∀ x y, 0 ≤ K x y)
     (hratio : ∀ x g u, K g u ≤ κ * K x u)
@@ -48,6 +54,7 @@ lemma tensorKernel_update_le (K : α → α → ℝ) (κ : ℝ)
   exact mul_le_mul_of_nonneg_right (hratio (x i) g (y i))
     (Finset.prod_nonneg fun j _ => hK (x j) (y j))
 
+omit [DecidableEq α] in
 lemma tensorAct_update_le (K : α → α → ℝ) (κ : ℝ)
     (hK : ∀ x y, 0 ≤ K x y)
     (hratio : ∀ x g u, K g u ≤ κ * K x u)
@@ -62,6 +69,7 @@ lemma tensorAct_update_le (K : α → α → ℝ) (κ : ℝ)
   simpa only [mul_assoc] using
     mul_le_mul_of_nonneg_right (tensorKernel_update_le K κ hK hratio n x y i g) (hf y)
 
+omit [Fintype α] in
 lemma refresh_pos (π : α → ℝ) (hπ : ∀ u, 0 < π u)
     (a : ℝ) (ha0 : 0 ≤ a) (ha1 : a < 1) (x y : α) :
     0 < refresh π (1 - a) x y := by
@@ -70,6 +78,7 @@ lemma refresh_pos (π : α → ℝ) (hπ : ∀ u, 0 < π u)
   dsimp [refresh]
   nlinarith
 
+omit [Fintype α] in
 /-- A uniform single-coordinate bound at all remaining times at least τ. -/
 theorem refresh_coordinate_bound (π : α → ℝ) (m M A a : ℝ)
     (hm : 0 < m) (hmin : ∀ u, m ≤ π u) (hmax : ∀ u, π u ≤ M)

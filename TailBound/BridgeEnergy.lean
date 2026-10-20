@@ -1,6 +1,8 @@
 import TailBound.LevelOne
 
 /-!
+# Bridge Energy
+
 Conditional bridge calculations on a finite alphabet.
 
 This file works with the explicit bridge law, including the two different
@@ -8,22 +10,23 @@ horizontal increments. Coordinate replacement is never treated as a flip.
 -/
 
 open scoped BigOperators
-namespace TailBound
 
-set_option linter.unusedSectionVars false
+namespace TailBound
 
 variable {α ι : Type*} [Fintype α] [DecidableEq α]
   [Fintype ι] [DecidableEq ι]
 
+omit [DecidableEq α] in
 lemma weighted_cauchy (μ d v : α → ℝ) (hμ : ∀ u, 0 < μ u) :
-    (∑ u, d u * v u)^2 ≤ (∑ u, (d u)^2 / μ u) *
-      (∑ u, μ u * (v u)^2) := by
+    (∑ u, d u * v u) ^ 2 ≤ (∑ u, (d u) ^ 2 / μ u) *
+      (∑ u, μ u * (v u) ^ 2) := by
   apply Finset.sum_sq_le_sum_mul_sum_of_sq_eq_mul
   · intro u _; exact div_nonneg (sq_nonneg _) (hμ u).le
   · intro u _; exact mul_nonneg (hμ u).le (sq_nonneg _)
   · intro u _
     field_simp [(hμ u).ne']
 
+omit [Fintype α] [DecidableEq α] in
 lemma productWeight_update (μ : ι → α → ℝ) (ν : α → ℝ)
     (i : ι) (x : ι → α) (hi : μ i (x i) ≠ 0) :
     productWeight (Function.update μ i ν) x =
@@ -69,6 +72,7 @@ lemma mean_product_difference (μ : ι → α → ℝ) (ν₁ ν₂ : α → ℝ
   rw [hmass]
   ring
 
+omit [Fintype α] in
 lemma bridgeH_pos (π : α → ℝ) (hπ : ∀ u, 0 < π u)
     {a : ℝ} (ha0 : 0 ≤ a) (ha1 : a < 1) (z x : α) :
     0 < bridgeH π a z x := by
@@ -76,6 +80,7 @@ lemma bridgeH_pos (π : α → ℝ) (hπ : ∀ u, 0 < π u)
   have h := mul_pos (sub_pos.mpr ha1) (hπ z)
   split_ifs <;> nlinarith
 
+omit [Fintype α] in
 lemma bridgeLaw_pos (π : α → ℝ) (hπ : ∀ u, 0 < π u)
     {a r : ℝ} (ha0 : 0 ≤ a) (ha1 : a < 1)
     (hr0 : 0 ≤ r) (hr1 : r < 1) (z x y u : α) :
@@ -89,6 +94,7 @@ lemma bridgeLaw_pos (π : α → ℝ) (hπ : ∀ u, 0 < π u)
   have h := mul_pos (mul_pos (sub_pos.mpr hr1) (hπ u)) huu
   split_ifs <;> nlinarith
 
+omit [Fintype α] in
 /-- Difference of the one-coordinate bridge laws. -/
 lemma bridgeLaw_difference (π : α → ℝ) (a r : ℝ)
     (z x g y u : α)
@@ -117,18 +123,18 @@ theorem product_perturbation_energy
     (w : ι → β → ℝ) (hw : ∀ i b, 0 ≤ w i b)
     (f : (ι → α) → ℝ) (hf : ∀ x, 0 ≤ f x ∧ f x ≤ 1)
     (B : ℝ) (hB : 0 ≤ B)
-    (hcoef : ∀ i, (∑ b, w i b * ∑ a, (ν₁ i b a - ν₂ i b a)^2 / μ i a) ≤ B) :
+    (hcoef : ∀ i, (∑ b, w i b * ∑ a, (ν₁ i b a - ν₂ i b a) ^ 2 / μ i a) ≤ B) :
     (∑ i, ∑ b, w i b *
       (mean (productWeight (Function.update μ i (ν₁ i b))) f -
-        mean (productWeight (Function.update μ i (ν₂ i b))) f)^2) ≤ B / 4 := by
+        mean (productWeight (Function.update μ i (ν₂ i b))) f) ^ 2) ≤ B / 4 := by
   let m := mean (productWeight μ) f
-  let V := fun i => mean (μ i) (fun a => (coordinateAverage μ f i a - m)^2)
+  let V := fun i => mean (μ i) (fun a => (coordinateAverage μ f i a - m) ^ 2)
   have hV : ∀ i, 0 ≤ V i := fun i =>
     Finset.sum_nonneg fun a _ => mul_nonneg (hμ i a).le (sq_nonneg _)
   have he (i : ι) (b : β) :
       (mean (productWeight (Function.update μ i (ν₁ i b))) f -
-        mean (productWeight (Function.update μ i (ν₂ i b))) f)^2 ≤
-      (∑ a, (ν₁ i b a - ν₂ i b a)^2 / μ i a) * V i := by
+        mean (productWeight (Function.update μ i (ν₂ i b))) f) ^ 2 ≤
+      (∑ a, (ν₁ i b a - ν₂ i b a) ^ 2 / μ i a) * V i := by
     rw [mean_product_difference μ (ν₁ i b) (ν₂ i b) i
       (fun a => (hμ i a).ne') (hmass i b) f m]
     exact weighted_cauchy (μ i) (fun a => ν₁ i b a - ν₂ i b a)
@@ -137,13 +143,13 @@ theorem product_perturbation_energy
     have h := level_one_product_le_quarter μ (fun i a => (hμ i a).le) hμmass f hf
     exact h.1.trans h.2
   calc
-    _ ≤ ∑ i, ∑ b, w i b * ((∑ a, (ν₁ i b a - ν₂ i b a)^2 / μ i a) * V i) := by
+    _ ≤ ∑ i, ∑ b, w i b * ((∑ a, (ν₁ i b a - ν₂ i b a) ^ 2 / μ i a) * V i) := by
       apply Finset.sum_le_sum
       intro i _
       apply Finset.sum_le_sum
       intro b _
       exact mul_le_mul_of_nonneg_left (he i b) (hw i b)
-    _ = ∑ i, (∑ b, w i b * ∑ a, (ν₁ i b a - ν₂ i b a)^2 / μ i a) * V i := by
+    _ = ∑ i, (∑ b, w i b * ∑ a, (ν₁ i b a - ν₂ i b a) ^ 2 / μ i a) * V i := by
       simp only [← mul_assoc, ← Finset.sum_mul]
     _ ≤ ∑ i, B * V i := by
       exact Finset.sum_le_sum fun i _ => mul_le_mul_of_nonneg_right (hcoef i) (hV i)
@@ -159,6 +165,7 @@ noncomputable def bridgePayoff (π : α → ℝ) (a r : ℝ)
     (z : ι → α) (f : (ι → α) → ℝ) (x y : ι → α) : ℝ :=
   mean (productWeight (bridgeMarginals π a r z x y)) f
 
+omit [Fintype α] [Fintype ι] in
 lemma bridgeMarginals_update_x (π : α → ℝ) (a r : ℝ)
     (z x y : ι → α) (i : ι) (g : α) :
     bridgeMarginals π a r z (Function.update x i g) y =
@@ -169,6 +176,7 @@ lemma bridgeMarginals_update_x (π : α → ℝ) (a r : ℝ)
   · subst j; simp [bridgeMarginals]
   · simp [bridgeMarginals, hj]
 
+omit [Fintype α] [Fintype ι] in
 lemma bridgeMarginals_update_y (π : α → ℝ) (a r : ℝ)
     (z x y : ι → α) (i : ι) (g : α) :
     bridgeMarginals π a r z x (Function.update y i g) =

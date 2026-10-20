@@ -1,6 +1,6 @@
 import TailBound
 
--- Every proved declaration, including the unconditional main theorem.
+-- Axiom dependencies for all 473 theorem and lemma declarations.
 #print axioms TailBound.quadratic_mixture_bound
 #print axioms TailBound.mixture_base_quadratic
 #print axioms TailBound.mixture_shift_quadratic
@@ -42,8 +42,8 @@ import TailBound
 #print axioms TailBound.refresh_to_kernel
 #print axioms TailBound.dirichlet_symmetrization
 #print axioms TailBound.dirichlet_nonneg
-#print axioms TailBound.correct_vertical_identity
-#print axioms TailBound.correct_shifted_vertical_identity
+#print axioms TailBound.vertical_identity
+#print axioms TailBound.shifted_vertical_identity
 #print axioms TailBound.reciprocal_update_ratio
 #print axioms TailBound.bridgeH_interpolation
 #print axioms TailBound.bridgeH_mean
@@ -56,10 +56,6 @@ import TailBound
 #print axioms TailBound.band_exponent_after_stop
 #print axioms TailBound.variance_le_quarter
 #print axioms TailBound.switched_drift_nonpos
-#print axioms TailBound.wrong_dirichlet_sign_counterexample
-#print axioms TailBound.wrong_reciprocal_counterexample
-#print axioms TailBound.wrong_increment_counterexample
-#print axioms TailBound.inverted_log_sobolev_counterexample
 #print axioms TailBound.threshold_pair
 #print axioms TailBound.threshold_flux_symmetrization
 #print axioms TailBound.threshold_flux_nonneg
@@ -474,7 +470,7 @@ import TailBound
 #print axioms TailBound.RefreshData.band_step_sharp
 #print axioms TailBound.RefreshData.sharpBandConstant_pos
 #print axioms TailBound.RefreshData.fixed_band_sharp
-#print axioms TailBound.RefreshData.sharpK_eq_manuscript
+#print axioms TailBound.RefreshData.sharpK_eq_explicit
 #print axioms TailBound.RefreshData.fixed_band_sharp_explicit
 #print axioms TailBound.marginalBandConstant_pos
 #print axioms TailBound.lemma2_sharp_of_bounds

@@ -12,12 +12,18 @@ jobs:
   build:
     name: Build and check
     runs-on: ubuntu-latest
+    env:
+      LEAN_NUM_THREADS: "1"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+      - name: Prepare pinned Boolean dependency
+        run: python3 scripts/prepare_dependencies.py
       - uses: leanprover/lean-action@v1
         with:
           auto-config: false
           build: true
+          build-args: --wfail
           use-mathlib-cache: true
+          use-github-cache: false
       - name: Check theorem statements and axiom dependencies
         run: bash scripts/check.sh

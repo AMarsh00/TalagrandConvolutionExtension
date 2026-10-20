@@ -1,14 +1,17 @@
 # Verification records
 
-The [17 October 2026 snapshot](2026-10-17/) retains the original verification outputs unchanged:
+The [20 October 2026 snapshot](2026-10-20/) records checks of the cleaned source.
 
 | File | Contents |
 | --- | --- |
-| `verification-build.log` | Project build output. |
-| `verification-main.log` | Main theorem, underlying definitions, and axiom footprint. |
-| `verification-sharp.log` | Explicit band-estimate statements, constants, and axioms. |
-| `verification-axioms.log` | Axiom dependencies for 477 lemma/theorem declarations. |
-| `verification-summary.json` | Toolchain and verification summary. |
-| `environment/proc_self.c` | Compatibility shim used only in the original container. |
+| `build.log` | Full project build with warnings treated as errors. |
+| `main.log` | Main theorem, underlying definitions, and axiom dependencies. |
+| `sharp.log` | Explicit band-estimate statements, constants, and axioms. |
+| `axioms.log` | Axiom dependencies for all 473 theorem/lemma declarations. |
+| `toolchain.txt` | Lean version used for these checks. |
+| `summary.json` | Commands, source counts, and verification results. |
+| `source-sha256.txt` | SHA-256 hashes of the distributed source and configuration. |
+| `environment/proc_self.c` | Executable-path compatibility shim used in this container. |
 
-These are historical records from the supplied source archive. For a fresh run of the current layout, follow [the verification guide](../docs/VERIFICATION.md).
+Follow the [verification guide](../docs/VERIFICATION.md) to reproduce the checks.
+The records describe a local run; they do not claim a completed GitHub Actions run.

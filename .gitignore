@@ -15,3 +15,7 @@ Thumbs.db
 
 # Ad hoc local verification output; retained records are tracked explicitly
 /verification-*.log
+
+# Python helper cache
+__pycache__/
+*.pyc

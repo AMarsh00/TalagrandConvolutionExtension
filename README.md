@@ -42,17 +42,18 @@ The [detailed correspondence](docs/CORRESPONDENCE.md) records the substitutions 
 
 ## Build and check
 
-Install [elan](https://github.com/leanprover/elan), then run from the project directory:
+Install [elan](https://github.com/leanprover/elan), Git, and Python 3, then run from the project directory:
 
 ```bash
+python scripts/prepare_dependencies.py
 lake exe cache get
-lake build
+lake build --wfail
 lake env lean checks/MainCheck.lean
 lake env lean checks/SharpCheck.lean
 lake env lean checks/AxiomsCheck.lean
 ```
 
-The project pins **Lean 4.29.1** and **Mathlib v4.29.1**. The recorded verification contains no admitted proofs, and the main theorem reports:
+The project pins **Lean 4.29.1** and **Mathlib v4.29.1**. The preparation script applies [source fixes](patches/README.md) for warnings in the pinned Boolean dependency. `--wfail` makes build warnings fail the check. The recorded verification contains no admitted proofs, and the main theorem reports:
 
 ```text
 'TailBound.main_theorem' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -72,6 +73,6 @@ The coupling is represented by finite master equations and barrier transfers. Th
 
 ## Acknowledgments
 
-This project uses the [Boolean Lean development](https://github.com/junwei-lu/TalagrandConvolutionConjecture) accompanying Junwei Lu, Shengtao Guo, and Ethan X. Fang's *Weak-Type Bounds for Convolution on the Boolean Hypercube*. It reuses general analytic tools and adapts the band argument to weighted finite alphabets; its Boolean headline theorem is not used to prove this result. The dependency is pinned in [lake-manifest.json](lake-manifest.json).
+This project uses the [Boolean Lean development](https://github.com/junwei-lu/TalagrandConvolutionConjecture) accompanying Junwei Lu, Shengtao Guo, and Ethan X. Fang's *Weak-Type Bounds for Convolution on the Boolean Hypercube*. It reuses general analytic tools and adapts the band argument to weighted finite alphabets; its Boolean headline theorem is not used to prove this result. The dependency revision and its warning fixes are recorded in [patches/README.md](patches/README.md).
 
 The weighted finite-alphabet estimates and full conditional bridge comparison are proved here. The underlying reverse-heat and layerwise methods build on work of Yuansi Chen and of Yanjin Xiang and Zhihua Zhang.
