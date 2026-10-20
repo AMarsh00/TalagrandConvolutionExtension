@@ -10,7 +10,7 @@ Let $(S_t)_{t\geq 0}$ be an irreducible continuous-time Markov semigroup on a fi
 
 For every $\tau>0$, there exists a constant $C_{\tau,S,\pi}>0$ such that
 
-> $\pi^{\otimes N}\!\left(S_\tau^{\otimes N}f>\eta\int_{G_0^N}f\,d\pi^{\otimes N}\right)\leq \dfrac{C_{\tau,S,\pi}}{\eta\sqrt{\log\eta}}.$
+> $\pi^{\otimes N}\left(S_\tau^{\otimes N}f>\eta\int_{G_0^N}f\,d\pi^{\otimes N}\right)\leq \dfrac{C_{\tau,S,\pi}}{\eta\sqrt{\log\eta}}.$
 
 The bound holds for every dimension $N\geq 1$, every nonnegative function $f:G_0^N\to[0,\infty)$, and every threshold $\eta>1$.
 
