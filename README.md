@@ -6,15 +6,15 @@ The main theorem extends the convolution tail bound to products of arbitrary fin
 
 ## Main theorem
 
-Let (S<sub>t</sub>)<sub>t ≥ 0</sub> be an irreducible continuous-time Markov semigroup on a finite state space G₀, with stationary distribution π.
+Let $(S_t)_{t\geq 0}$ be an irreducible continuous-time Markov semigroup on a finite state space $G_0$, with stationary distribution $\pi$.
 
-For every τ > 0, there exists a constant C > 0 such that
+For every $\tau>0$, there exists a constant $C_{\tau,S,\pi}>0$ such that
 
-> π<sup>⊗N</sup>({x : (S<sub>τ</sub><sup>⊗N</sup>f)(x) > η ∫ f dπ<sup>⊗N</sup>}) ≤ C / (η √log η).
+> $\pi^{\otimes N}\!\left(S_\tau^{\otimes N}f>\eta\int_{G_0^N}f\,d\pi^{\otimes N}\right)\leq \dfrac{C_{\tau,S,\pi}}{\eta\sqrt{\log\eta}}.$
 
-The bound holds for every dimension N ≥ 1, every nonnegative function f on G₀<sup>N</sup>, and every threshold η > 1.
+The bound holds for every dimension $N\geq 1$, every nonnegative function $f:G_0^N\to[0,\infty)$, and every threshold $\eta>1$.
 
-**The constant C depends only on τ, the semigroup, and π—not on N, f, or η.**
+**The constant $C_{\tau,S,\pi}$ depends only on $\tau$, the semigroup, and $\pi$, and is independent of $N$, $f$, and $\eta$.**
 
 ```lean
 theorem TailBound.main_theorem : TailBound.ManuscriptTheorem1
