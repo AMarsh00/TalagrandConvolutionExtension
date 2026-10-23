@@ -1,6 +1,6 @@
 # Talagrand's Convolution Bound for Finite-State Markov Semigroups
 
-**A Lean 4 formalization** of Alexander Marsh's *Talagrand's Convolution Bound for Products of Finite-State Markov Semigroups*.
+**A Lean 4 formalization** of Alexander Marsh's *Talagrand's Convolution Bound for Tensor Powers of Finite-State Markov Semigroups*.
 
 The main theorem extends the convolution tail bound to products of arbitrary finite-state irreducible continuous Markov semigroups. The stationary law may be nonuniform, and reversibility is not required.
 
