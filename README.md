@@ -74,6 +74,8 @@ The coupling is represented by finite master equations and barrier transfers. Th
 
 ## Acknowledgments
 
+The Lean formalization and accompanying documentation was generated using ChatGPT 6.1 Sol, but was verified by the human author.
+
 This project uses the [Boolean Lean development](https://github.com/junwei-lu/TalagrandConvolutionConjecture) accompanying Junwei Lu, Shengtao Guo, and Ethan X. Fang's *Weak-Type Bounds for Convolution on the Boolean Hypercube*. It reuses general analytic tools and adapts the band argument to weighted finite alphabets; its Boolean headline theorem is not used to prove this result. The dependency revision and its warning fixes are recorded in [patches/README.md](patches/README.md).
 
 The weighted finite-alphabet estimates and full conditional bridge comparison are proved here. The underlying reverse-heat and layerwise methods build on work of Yuansi Chen and of Yanjin Xiang and Zhihua Zhang.
